@@ -1,0 +1,47 @@
+doctype 5
+
+html
+
+	head
+		title hoojah	
+		= stylesheet_link_tag 		'application', media: 'all', 'data-turbolinks-track' => true
+		= javascript_include_tag	'application', 'data-turbolinks-track' => true
+		= csrf_meta_tags
+		= javascript_include_tag  "assets/twitterbootstrap/js/bootstrap-tab.js"
+
+	body
+		- unless @js_custom_turbolink.nil?
+			= javascript_include_tag  'application', media: 'all', data: @custom_turbolink
+		- else
+			= javascript_include_tag 'application', data: {'turbolinks-track' => true}
+
+		nav.navbar.navbar-default.navbar-fixed-top
+			.container
+				.col-lg-1.navbar-brand = link_to 'hoojah', root_path
+				.col-lg-6
+					.input-group.navbar-search
+						= form_for search_path, method: :get do |f|
+							= text_field_tag :query, params[:query], class: "form-control"
+						.input-group-btn = submit_tag "Go!", name: nil, class: "btn btn-default"
+				.col-lg-5
+					ul.nav.navbar-nav.navbar-right
+						- if user_signed_in?
+							li = link_to "Search", search_path
+							li = link_to 'New Opinion', new_opinion_path
+							li = link_to current_user, class: 'navbar-avatar' do
+								= image_tag current_user.avatar, class: 'avatar'
+							li = link_to 'Sign Out', destroy_user_session_path, method: :delete
+						- else
+							li = link_to 'Sign Up', new_user_registration_path
+							li = link_to 'Sign In', new_user_session_path
+		
+		.container
+			#page
+				- if notice
+					.container.alert.alert_info
+						p#notice = notice
+				- if alert
+					.container.alert.alert_info
+						p#alert = alert
+				
+				= yield

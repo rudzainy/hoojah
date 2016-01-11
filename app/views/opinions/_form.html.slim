@@ -1,0 +1,44 @@
+= form_for @opinion do |f|
+	/ Display error messages if any
+	- if @opinion.errors.any?
+		h2
+		= pluralize(@opinion.errors.count, "error")
+		prevented this post from saving
+		ul
+			- @opinion.errors.full_messages.each do |msg|
+				li = msg
+
+	.form-group
+		= f.label :title 
+		= f.text_field :title  , autofocus: true
+		= f.label :category 
+		= f.select :category_id, options_for_select(Category.all.collect {|p| [p.name, p.id] })
+    = f.hidden_field :user_id, value: "#{current_user.id}"
+    = f.hidden_field :opinion_id, value: "#{@opinion_id}"
+	.form-group
+		= f.label :search_image
+		= link_to 'Search image', "#", onclick: "$('#unsplash-search-box').show();"
+		= f.hidden_field :image, class: 'image-link'
+		/ Will use bootstrap popup later
+
+		/ Placeholder for selected image
+		br Image selected: 
+		.image-placeholder
+
+	
+
+	.form-group
+		.row
+			.col-md-6
+				= f.label :option_1
+				/ Sets maximum characters to 12
+				= f.text_field :option1  , maxlength: '12'
+			.col-md-6
+				= f.label :option_2 
+				/ Sets maximum characters to 12
+				= f.text_field :option2  , maxlength: '12'
+	.btn-group
+		= f.submit 'Post'
+
+#unsplash-search-box
+	= render 'search_image'

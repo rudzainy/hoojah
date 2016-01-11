@@ -1,0 +1,18 @@
+.col-md-8.col-md-offset-2
+
+	.panel.panel-default
+		.panel-heading.user
+			ul.nav.nav-tabs data-tabs="tabs"
+				li.tab.active: a href="#profile" data-toggle="tab" Profile
+				li.tab: a href="#user_opinions" data-toggle="tab" Opinions
+				li.tab: a href="#user_debates" data-toggle="tab" Debates
+				li.tab: a href="#user_comments" data-toggle="tab" Comments
+				li.tab: a href="#user_notifications" data-toggle="tab" Notifications
+
+		.panel-body.user
+			.tab-content
+				= render 'profile'
+				= render 'opinions'
+				= render 'debates'
+				= render 'comments'
+				= render 'notifications'

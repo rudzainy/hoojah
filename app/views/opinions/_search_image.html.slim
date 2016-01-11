@@ -1,0 +1,20 @@
+= form_tag "/opinions/query_image" do |f|
+	/ Display error messages if any
+	/ - if @search_result.errors.any?
+	/ 	h2
+	/ 	= pluralize(@search_result.errors.count, "error")
+	/ 	prevented this post from saving
+	/ 	ul
+	/ 		- @search_result.errors.full_messages.each do |msg|
+	/ 			li = msg
+
+	.form-group
+		= label_tag :search
+		= text_field_tag :search, nil, class: 'search-box'
+	.btn-group
+		= submit_tag 'Search', class: 'search-button'
+	
+	.search-result-box
+		/ - @search_results.each do |image|
+		/ 	.unsplash-thumb
+		/ 		= image_tag("#{image.urls["thumb"]}")

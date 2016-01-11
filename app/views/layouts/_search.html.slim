@@ -1,0 +1,10 @@
+= form_for search_path, method: :get do |f|
+  = text_field_tag :q, params[:q]
+  = submit_tag image_tag, name: nil
+
+- unless @opinions.nil?
+  h4 Here are your results:
+  - @opinions.each do |opinion|
+    li
+      h
+        = link_to opinion.title, controller: "opinions", action: "show", id: opinion.id

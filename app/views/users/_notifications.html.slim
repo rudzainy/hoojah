@@ -1,0 +1,13 @@
+.tab-pane#user_notifications
+	- unless (invitations = current_user.invitations).count == 0
+		- invitations.each do |invitation|
+			.row.user_notification
+				.col-md-4
+					| Invitation
+				.col-md-8
+					| Your have been invited by 
+					= link_to (user = User.find(invitation.sender_id)).name, user_path(user)
+					|  to debate on 
+					= link_to (opinion = Debate.find(invitation.debate_id).opinion).title, opinion_path(opinion)
+	- else
+		p You have no notifications.

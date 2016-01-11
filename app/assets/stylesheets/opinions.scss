@@ -1,0 +1,16 @@
+// Place all the styles related to the opinions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.search-result-box {
+	width: 100%;
+	position: relative;
+}
+
+.unsplash-thumb {
+	position: relative;
+	float: left;
+	border: 2px #fff solid;
+	height: 200px;
+	width: auto;
+}

@@ -1,0 +1,78 @@
+#opinion_show.row
+	.col-md-8.col-md-offset-2
+		.panel.panel-default
+			.panel-heading.opinion_image
+				#image-border
+					= image_tag @opinion.image
+				h2.text-center
+					= @opinion.title
+			.panel-body
+				.row
+					.btn-group
+						ruby: 
+							btns = ["btn-warning", "btn-primary", "btn-success"]
+							unless current_user.nil? || (vote = current_user.votes.find_by(opinion_id: @opinion.id)).nil?
+								button_colors = ["btn-default", "btn-default", "btn-default"]
+								button_colors[vote.flag] = btns[vote.flag]
+							else
+								button_colors = btns
+							end
+
+						= link_to @opinion.option1, vote_opinion_path(id: @opinion.id, flag: 1), method: :post, class: "btn " + button_colors[1]
+						= link_to "Neutral", vote_opinion_path(id: @opinion.id, flag: 0), method: :post, class: "btn " + button_colors[0]
+						= link_to @opinion.option2, vote_opinion_path(id: @opinion.id, flag: 2), method: :post, class: "btn " + button_colors[2]
+				.row.text-center
+					.col-md-12
+						span.text-left
+							h5.color-primary
+								= pluralize(@opinion.votes.where(flag: 1).count, "vote")
+						span.text-center
+							h5.color-warning
+								= pluralize(@opinion.votes.where(flag: 0).count, "vote")
+						span.text-right
+							h5.color-success
+								= pluralize(@opinion.votes.where(flag: 2).count, "vote")
+				- unless @debates.empty?
+					.row
+						.col-md-12
+							h3 Latest Debates
+							.row
+								.col-md-5
+									|	Proposer
+								.col-md-5
+									| Contender
+								.col-md-2
+								- @debates.each do |debate|
+									.row
+										.col-md-5
+											= image_tag User.find(debate.user_pro_id).avatar, alt: "#{User.find(debate.user_pro_id).name}'s avatar", class: 'avatar'
+											= User.find(debate.user_pro_id).name
+										.col-md-5
+											= image_tag User.find(debate.user_con_id).avatar, alt: "#{User.find(debate.user_con_id).name}'s avatar", class: 'avatar'
+											= User.find(debate.user_con_id).name
+										.col-md-2
+											= link_to "Go to debate", [@opinion, debate], class: "btn-sm btn-primary"
+			.panel-footer
+				.row
+					.col-md-6
+						p.user
+						p posted by #{@opinion.user.name}
+									
+					.col-md-6
+						.btn-toolbar.btn-group.pull-right
+							= link_to "Create Debate", new_opinion_debate_path(@opinion), class: "btn btn-primary"
+							- if can? :update, @opinion	
+								= link_to "Edit", edit_opinion_path(@opinion), class: "btn btn-default"
+								= link_to "Delete", disable_opinion_path(@opinion), method: :patch, class: "btn-group btn btn-default"
+							- if can? :destroy, @opinion	
+								= link_to "Erase", opinion_path(@opinion), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-default"
+
+
+					- if can? :create, @comment
+						= render 'comments/form'
+					- else
+		              p
+		              | You must #{link_to "Login", new_user_session_path} before you can comment
+		          
+			    ol.comments
+				  	= render @comments

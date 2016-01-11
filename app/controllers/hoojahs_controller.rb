@@ -1,0 +1,2 @@
+class HoojahsController < ApplicationController
+end

@@ -1,0 +1,22 @@
+= form_for @category do |f|
+	
+	- @category.errors.any?
+		div
+			= pluralize(@category.errors.count, "error") 
+			prohibited this category from being saved:
+			ul
+				- @category.full_message.each do |message|
+					li
+						= message
+
+	.field
+		== f.label :name
+		br
+		== f.text_field :name
+	.actions
+		== f.submit
+
+ul
+	- @categories.each_with_index do |category, index|
+		li
+			= category.name

@@ -1,0 +1,7 @@
+h1 edit the comment
+
+- if can? :update, @comment
+	= render 'editform'
+- else
+	  p
+	    | You must #{link_to "Login", new_user_session_path} before you can comment

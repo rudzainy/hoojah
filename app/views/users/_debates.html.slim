@@ -1,0 +1,17 @@
+.tab-pane#user_debates
+	- unless (debates = find_debate(@user)).count == 0
+		- debates.each do |debate|
+			.row.user_debate
+				.col-md-3
+					= debate.opinion.title
+				.col-md-3
+					= User.find(debate.user_pro_id).name
+				.col-md-3
+					= User.find(debate.user_con_id).name
+				.col-md-3
+					- unless debate.winner_id.nil?
+						= User.find(debate.winner_id).name
+					- else
+						= "No winners yet"
+	- else
+		p You have no debates.

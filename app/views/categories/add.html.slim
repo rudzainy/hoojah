@@ -1,0 +1,6 @@
+h1 Add new category
+
+- if can? :create, @category
+	= render 'form'
+- else 
+	p only admins can add new categories.

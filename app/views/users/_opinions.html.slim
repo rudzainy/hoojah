@@ -1,0 +1,12 @@
+.tab-pane#user_opinions
+	- unless (opinions = @user.opinions).count == 0
+		- opinions.each do |opinion|
+			.row.user_opinion
+				.col-md-4
+					= image_tag opinion.image, class: "avatar"
+				.col-md-4
+					= opinion.title
+				.col-md-4
+					= opinion.created_at
+	- else
+		p You have no opinions.

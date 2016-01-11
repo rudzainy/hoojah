@@ -1,0 +1,10 @@
+.tab-pane#user_comments
+	- unless (comments = @user.comments).count == 0
+		- comments.each do |comment|
+			.row.user_comment
+				.col-md-4
+					= comment.opinion.title
+				.col-md-8
+					= comment.text
+	- else
+		p You have no comments.

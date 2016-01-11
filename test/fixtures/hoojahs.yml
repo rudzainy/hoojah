@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  debate_id: 1
+  body: MyText
+  disable: false
+  timestamps: MyString
+
+two:
+  debate_id: 1
+  body: MyText
+  disable: false
+  timestamps: MyString
