@@ -20,14 +20,14 @@ roles.each do |role|
 	Role.create(name: role)
 end
 
-# #create admin
-# User.create!(name: "Tommy Middlefinger", email: "tommy@gmail.com", 
-#   	         role_id: 1, password: "111222333" , password_confirmation: "111222333")
+#create admin
+User.create!(name: "Hoojah Admin", email: "admin@hoojah.com", 
+  	         role_id: 1, password: "12345678" , password_confirmation: "12345678")
 
 
-# #create moderator
-# User.create!(name:"Chester", email:"chesterajohn@gmail.com", role_id: 2, 
-# 	         password:"111222333", password_confirmation:"111222333")
+#create moderator
+User.create!(name:"Hoojah Moderator", email:"moderator@hoojah.com", role_id: 2, 
+	         password:"12345678", password_confirmation:"12345678")
 
 
 # #create regular users
