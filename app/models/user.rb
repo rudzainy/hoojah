@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  mount_uploader :avatar, AvatarUploader
+  
 	belongs_to :role
   has_many :opinions
   has_many :comments
@@ -23,7 +26,7 @@ class User < ActiveRecord::Base
 	end
 
 	def admin?
-      self.role.name == "Admin"
+    self.role.name == "Admin"
   end
 
   def moderator?

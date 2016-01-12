@@ -55,6 +55,9 @@ gem 'cancancan'
 # Use identicon for default user avatar
 gem 'identicon'
 
+# Use Carrierwave for image uploading
+gem 'carrierwave'
+
 #for search 
 # gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
 # gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
