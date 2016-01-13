@@ -5,9 +5,10 @@ html
 	head
 		title hoojah	
 		= stylesheet_link_tag 		'application', media: 'all', 'data-turbolinks-track' => true
-		= javascript_include_tag	'application', 'data-turbolinks-track' => true
+		/ = javascript_include_tag	'application', 'data-turbolinks-track' => true
 		= csrf_meta_tags
-		= javascript_include_tag  "assets/twitterbootstrap/js/bootstrap-tab.js"
+		/ = javascript_include_tag  'assets/js/twitterbootstrap/js/bootstrap-tab.js'
+		/ = javascript_include_tag	'assets/js/freewall.js'
 
 	body
 		- unless @js_custom_turbolink.nil?
@@ -21,12 +22,11 @@ html
 				.col-lg-6
 					.input-group.navbar-search
 						= form_for search_path, method: :get do |f|
-							= text_field_tag :query, params[:query], class: "form-control"
-						.input-group-btn = submit_tag "Go!", name: nil, class: "btn btn-default"
+							= text_field_tag :query, params[:query], class: 'form-control'
+						.input-group-btn = submit_tag 'Go!', name: nil, class: 'btn btn-default'
 				.col-lg-5
 					ul.nav.navbar-nav.navbar-right
 						- if user_signed_in?
-							li = link_to "Search", search_path
 							li = link_to 'New Opinion', new_opinion_path
 							li = link_to current_user, class: 'navbar-avatar' do
 								= image_tag current_user.avatar, class: 'avatar'
@@ -45,3 +45,16 @@ html
 						p#alert = alert
 				
 				= yield
+
+		javascript:
+			$(function() {
+				var wall = new Freewall("#opinions");
+				wall.fitWidth();
+				wall.reset({
+					animate: true,
+					cellW: 'auto',
+					onResize: function() {
+						wall.fitWidth();
+					}
+				});
+			});
