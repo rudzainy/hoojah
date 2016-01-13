@@ -19,7 +19,7 @@
         // default setting;
         defaultConfig: {
             animate: true,
-            cellW: 'auto', // function(container) {return 100;}
+            cellW: 300, // function(container) {return 100;}
             cellH: 'auto', // function(container) {return 100;}
             delay: 0, // slowdown active block;
             engine: 'giot', // 'giot' is a person name;
