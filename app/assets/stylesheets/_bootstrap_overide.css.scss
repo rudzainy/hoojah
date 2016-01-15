@@ -1,0 +1,11 @@
+.panel-body {
+	padding: 0;
+	.percentage-bar {
+		margin: 0;
+		width: 100%;
+		.opinion1-bar, .opinion2-bar, .neutral-bar {
+			color: white;
+		display: inline-block;
+		}
+	}
+}

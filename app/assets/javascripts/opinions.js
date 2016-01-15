@@ -1,5 +1,19 @@
 $(document).ready(function(){
 
+	$(function() {
+		var wall = new Freewall("#opinions");
+		wall.fitWidth();
+		wall.reset({
+			selector: '.box',
+			animate: true,
+			cellW: 300,
+			cellH: 'auto',
+			onResize: function() {
+				wall.fitWidth();
+			}
+		});
+	});
+
 	$('#unsplash-search-box').hide();
 
 	$('.search-button').click(function(event){

@@ -45,18 +45,3 @@ html
 						p#alert = alert
 				
 				= yield
-
-		javascript:
-			$(function() {
-				var wall = new Freewall("#opinions");
-				wall.fitWidth();
-				wall.reset({
-					selector: '.box',
-					animate: true,
-					cellW: 300,
-					cellH: 'auto',
-					onResize: function() {
-						wall.fitWidth();
-					}
-				});
-			});
