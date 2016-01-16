@@ -20,6 +20,18 @@ class Opinion < ActiveRecord::Base
 	  self.update(disable: false)
 	end
 
+	def vote_0
+		self.votes.where(flag: 0)
+	end
+
+	def vote_1
+		self.votes.where(flag: 1)
+	end
+
+	def vote_2
+		self.votes.where(flag: 2)
+	end
+
 	def self.search(query)
 	  __elasticsearch__.search(
 	  {

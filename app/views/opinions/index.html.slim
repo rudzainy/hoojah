@@ -8,9 +8,12 @@
 				.panel-body
 					- unless opinion.votes.all.empty?
 						.percentage-bar.text-center
-							<span style="width: #{(opinion.votes.where(flag: 1).count) == nil ? 0 : (opinion.votes.where(flag: 1).count).percentage_of(opinion.votes.count)}%;" class="opinion1-bar bg-blue">#{(opinion.votes.where(flag: 1).count) == nil ? 0 : (opinion.votes.where(flag: 1).count).percentage_of(opinion.votes.count).round(2)}%</span>
-							<span style="width: #{(opinion.votes.where(flag: 0).count) == nil ? 0 : (opinion.votes.where(flag: 0).count).percentage_of(opinion.votes.count)}%;" class="neutral-bar bg-orange">#{(opinion.votes.where(flag: 0).count) == nil ? 0 : (opinion.votes.where(flag: 0).count).percentage_of(opinion.votes.count).round(2)}%</span>
-							<span style="width: #{(opinion.votes.where(flag: 2).count) == nil ? 0 : (opinion.votes.where(flag: 2).count).percentage_of(opinion.votes.count)}%;" class="opinion2-bar bg-green">#{(opinion.votes.where(flag: 2).count) == nil ? 0 : (opinion.votes.where(flag: 2).count).percentage_of(opinion.votes.count).round(2)}%</span>
+							- if opinion.vote_1.count != nil && opinion.vote_1.count > 0
+								<span style="width: #{(opinion.votes.where(flag: 1).count) == nil ? 0 : (opinion.votes.where(flag: 1).count).percentage_of(opinion.votes.count)}%;" class="opinion1-bar bg-blue">#{(opinion.votes.where(flag: 1).count) == nil ? 0 : (opinion.votes.where(flag: 1).count).percentage_of(opinion.votes.count).round(2)}%</span>
+							- if opinion.vote_0.count != nil && opinion.vote_0.count > 0
+								<span style="width: #{(opinion.votes.where(flag: 0).count) == nil ? 0 : (opinion.votes.where(flag: 0).count).percentage_of(opinion.votes.count)}%;" class="neutral-bar bg-orange">#{(opinion.votes.where(flag: 0).count) == nil ? 0 : (opinion.votes.where(flag: 0).count).percentage_of(opinion.votes.count).round(2)}%</span>
+							- if opinion.vote_2.count != nil && opinion.vote_2.count > 0
+								<span style="width: #{(opinion.votes.where(flag: 2).count) == nil ? 0 : (opinion.votes.where(flag: 2).count).percentage_of(opinion.votes.count)}%;" class="opinion2-bar bg-green">#{(opinion.votes.where(flag: 2).count) == nil ? 0 : (opinion.votes.where(flag: 2).count).percentage_of(opinion.votes.count).round(2)}%</span>
 					h2 
 						= link_to "#{opinion.title}", opinion
 					.row
