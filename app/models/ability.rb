@@ -36,7 +36,7 @@ class Ability
     elsif user.moderator?
         can [:create, :read, :update], :all
     elsif user.regular?
-        can :create, [Comment, Opinion, Debate, Hoojah]
+        can :create, [Comment, Opinion, Debate, Hoojah], user_id: user.id
         can :update, [User, Comment, Opinion, Debate, Hoojah], user_id: user.id
         can :read, :all
     else
