@@ -16,14 +16,13 @@ html
 		- else
 			= javascript_include_tag 'application', data: {'turbolinks-track' => true}
 
-		nav.navbar.navbar-default.navbar-fixed-top
+		nav.navbar
 			.container
-				.col-lg-1.navbar-brand = link_to 'hoojah', root_path
-				.col-lg-6
-					.input-group.navbar-search
+				.col-lg-2.navbar-brand = link_to 'hoojah', root_path
+				.col-lg-5
+					.navbar-search
 						= form_for search_path, method: :get do |f|
-							= text_field_tag :query, params[:query], class: 'form-control'
-						.input-group-btn = submit_tag 'Go!', name: nil, class: 'btn btn-default'
+							= text_field_tag :query, params[:query], class: 'form-control', placeholder: "Search"
 				.col-lg-5
 					ul.nav.navbar-nav.navbar-right
 						- if user_signed_in?

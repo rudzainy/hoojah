@@ -21,27 +21,35 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap_overide";
+@import "variables";
 
 body {
-	background: #E9E9E9;
+	background: $silver;
 }
 
 h1, h2, h3, h4, h5, h6 {
 	font-weight: 100;
 }
 
-nav {
-	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.22);
+.navbar {
+	background-color: rgba(1,1,1,0.75);
+	border-radius: 0 !important;
+	box-shadow: 0 1px 2px 0 rgba(1, 1, 1, 0.22);
 	.navbar-brand {
 		a {
-			color: #433867;
-			font-size: 16pt;
+			color: $white ; //#433867
+		  text-shadow:
+		   -1px -1px 0 $black,  
+		    1px -1px 0 $black,
+		    -1px 1px 0 $black,
+		     1px 1px 0 $black;
+			font-size: 40pt;
 			font-weight: bold;
 			text-decoration: none;
-			/*margin-left: auto;
-	    margin-right: auto;
-	    width: 200px;
-	    background-image: url('../images/logo-colour-small.png');*/
+			// margin-left: auto;
+		  // margin-right: auto;
+		  // width: 200px;
+		  // background-image: url('../images/logo-colour-small.png');
 		  -o-transition:color .2s ease-out, background 2s ease-in;
 		  -ms-transition:color .2s ease-out, background 2s ease-in;
 		  -moz-transition:color .2s ease-out, background 2s ease-in;
@@ -49,22 +57,29 @@ nav {
 		  transition:color .2s ease-out, background 2s ease-in;
 		
 			&:hover {
+				color: $lime;
 				text-decoration: none;
 			}
-		}
-		a:hover { 
-			color: #5cb85c;
-			background-color: #F8F8F8;
 		}
 	}	
 	.navbar-search {
 		margin-top: 8px;	
+		border-radius: 0 !important;
 	}
 	.navbar-avatar {
 		margin: -8px 10px -10px -10px;
 		padding: 0;
 		max-width: 35px;
 		border-radius: 50%;
+	}
+	.navbar-right {
+		a {
+			color: $white;
+		}
+		a:hover {
+			color: $lime;
+			background-color: $black;                   
+		}
 	}
 }
 
@@ -75,7 +90,7 @@ nav {
 }
 
 #page {
-	margin: 60px auto 0 auto;
+	margin: 0 auto;
   width: 100%;
   position: relative;
 }
