@@ -13,10 +13,11 @@
 							= link_to "Neutral", vote_opinion_path(id: @opinion.id, flag: 0), method: :post, class: "neutral"
 							= link_to @opinion.option2, vote_opinion_path(id: @opinion.id, flag: 2), method: :post, class: "option2"
 			.panel-body
-				.percentage-bar.text-center
-					<span style="width: #{(@opinion.votes.where(flag: 1).count) == nil ? 0 : (@opinion.votes.where(flag: 1).count).percentage_of(@opinion.votes.count)}%;" class="opinion1-bar bg-blue">#{(@opinion.votes.where(flag: 1).count) == nil ? 0 : (@opinion.votes.where(flag: 1).count).percentage_of(@opinion.votes.count)}%</span>
-					<span style="width: #{(@opinion.votes.where(flag: 0).count) == nil ? 0 : (@opinion.votes.where(flag: 0).count).percentage_of(@opinion.votes.count)}%;" class="neutral-bar bg-orange">#{(@opinion.votes.where(flag: 0).count) == nil ? 0 : (@opinion.votes.where(flag: 0).count).percentage_of(@opinion.votes.count)}%</span>
-					<span style="width: #{(@opinion.votes.where(flag: 2).count) == nil ? 0 : (@opinion.votes.where(flag: 2).count).percentage_of(@opinion.votes.count)}%;" class="opinion2-bar bg-green">#{(@opinion.votes.where(flag: 2).count) == nil ? 0 : (@opinion.votes.where(flag: 2).count).percentage_of(@opinion.votes.count)}%</span>
+				- unless @opinion.votes.all.empty?
+					.percentage-bar.text-center
+						<span style="width: #{(@opinion.votes.where(flag: 1).count) == nil ? 0 : (@opinion.votes.where(flag: 1).count).percentage_of(@opinion.votes.count)}%;" class="opinion1-bar bg-blue">#{(@opinion.votes.where(flag: 1).count) == nil ? 0 : (@opinion.votes.where(flag: 1).count).percentage_of(@opinion.votes.count).round(2)}%</span>
+						<span style="width: #{(@opinion.votes.where(flag: 0).count) == nil ? 0 : (@opinion.votes.where(flag: 0).count).percentage_of(@opinion.votes.count)}%;" class="neutral-bar bg-orange">#{(@opinion.votes.where(flag: 0).count) == nil ? 0 : (@opinion.votes.where(flag: 0).count).percentage_of(@opinion.votes.count).round(2)}%</span>
+						<span style="width: #{(@opinion.votes.where(flag: 2).count) == nil ? 0 : (@opinion.votes.where(flag: 2).count).percentage_of(@opinion.votes.count)}%;" class="opinion2-bar bg-green">#{(@opinion.votes.where(flag: 2).count) == nil ? 0 : (@opinion.votes.where(flag: 2).count).percentage_of(@opinion.votes.count).round(2)}%</span>
 				- unless @debates.empty?
 					.row
 						.col-md-12
