@@ -20,16 +20,17 @@ class CommentsController < ApplicationController
 	  respond_to do |format|
 	    if current_user.nil? 
 	      format.html{render :new}
-		else
+			else
 	      @comment = current_user.comments.new(comment_params)	        
 	      if @comment.save!
-			format.html { redirect_to @opinion,
-			              notice: "#{current_user.name}, you\'ve joined in the discussion!" }
-			format.js
-		  else 
-			format.html {render :new}
-		  end
-		end
+	      	@comment.update(user_vote: @comment.opinion.votes.find_by_user_id(1).flag) if !@comment.opinion.votes.find_by_user_id(1).flag.nil?
+					format.html { redirect_to @opinion,
+					              notice: "#{current_user.name}, you\'ve joined in the discussion!" }
+					format.js
+			  else 
+					format.html {render :new}
+			  end
+			end
 	  end
 	end
 

@@ -1,11 +1,12 @@
 - unless comment.disable == true
   li id="comment-#{comment.id}"
     span.picture
-      img src="#{comment.user.avatar}"
+      img src="#{comment.user.avatar}" class="picture-#{comment.user_vote}"
     span.user = link_to comment.user.name, comment.user
     span.text = comment.text
     span.timestamp
       | Written #{time_ago_in_words(comment.created_at)} ago.
+      = comment.user_vote
     .btn-toolbar
       - if can? :update, comment
         = link_to "edit", edit_comment_path(comment), class: "btn-group btn-sm btn-default"
