@@ -46,7 +46,8 @@
 									
 					.col-md-6
 						.btn-toolbar.btn-group.pull-right
-							= link_to "Create Debate", new_opinion_debate_path(@opinion), class: "btn btn-primary"
+							- if can? :create, @debate
+								= link_to "Create Debate", new_opinion_debate_path(@opinion), class: "btn btn-primary"
 							- if can? :update, @opinion	
 								= link_to "Edit", edit_opinion_path(@opinion), class: "btn btn-default"
 								= link_to "Delete", disable_opinion_path(@opinion), method: :patch, class: "btn-group btn btn-default"
