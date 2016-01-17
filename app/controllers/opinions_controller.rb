@@ -68,7 +68,7 @@ class OpinionsController < ApplicationController
 
 	# Page to create new Opinion post
 	def new
-		@opinion = current_user.opinions.new
+		@opinion = Opinion.new
 	end
 
 	# Edit an Opinion post
