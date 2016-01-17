@@ -1,5 +1,6 @@
 class OpinionsController < ApplicationController
 	before_action :find_opinion, only: [:show, :update, :destroy, :disable]
+	load_and_authorize_resource
 	helper VotesHelper
 
 	# Disable an Opinion post

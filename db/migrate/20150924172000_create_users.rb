@@ -1,7 +1,7 @@
 class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
-    	t.integer :role_id, default: 4
+    	t.integer :role_id, default: 3
       t.string :name
       t.text :about
       t.string :avatar
