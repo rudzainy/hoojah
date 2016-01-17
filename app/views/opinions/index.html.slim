@@ -5,14 +5,14 @@
 			.box.panel.panel-default
 				.panel-heading.opinion_image
 					#image-border
-						- if opinion.image.empty?
+						- if opinion.image.url.nil?
 							= link_to (image_tag "default-image.png"), opinion
 						-else
 							= link_to (image_tag opinion.image), opinion 
 					.panel-title
 						.panel-container
 							h2.text-center
-								= link_to "#{opinion.title}", opinion
+								= link_to "#{opinion.title[0..160].gsub(/\s\w+\s*$/,'...')}", opinion
 							.panel-vote
 								= link_to opinion.option1, vote_opinion_path(id: opinion.id, flag: 1), method: :post, class: "option1"
 								= link_to "Neutral", vote_opinion_path(id: opinion.id, flag: 0), method: :post, class: "neutral"
