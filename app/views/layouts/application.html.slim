@@ -16,23 +16,7 @@ html
 		- else
 			= javascript_include_tag 'application', data: {'turbolinks-track' => true}
 
-		nav.navbar
-			.container
-				.col-lg-2.navbar-brand = link_to 'hoojah', root_path
-				.col-lg-5
-					.navbar-search
-						= form_for search_path, method: :get do |f|
-							= text_field_tag :query, params[:query], class: 'form-control', placeholder: "Search"
-				.col-lg-5
-					ul.nav.navbar-nav.navbar-right
-						- if user_signed_in?
-							li = link_to 'New Opinion', new_opinion_path
-							li = link_to current_user, class: 'navbar-avatar' do
-								= image_tag current_user.avatar, class: 'avatar'
-							li = link_to 'Sign Out', destroy_user_session_path, method: :delete
-						- else
-							li = link_to 'Sign Up', new_user_registration_path
-							li = link_to 'Sign In', new_user_session_path
+		= render 'layouts/navbar'
 		
 		.container
 			#page

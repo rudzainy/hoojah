@@ -1,0 +1,27 @@
+<nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<%= link_to 'hoojah', root_path, alt: "hoojah", class: "navbar-brand" %>
+			<button class="navbar-toggle" data-toggle="collapse" data-target=".nav-header-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+		<div class="navbar-collapse collapse nav-header-collapse">
+			<!--%= form_for search_path, html: {class: "navbar-form navbar-search-input"}, method: :get do |f| %>
+				%= text_field_tag :query, params[:query], class: 'form-control', placeholder: "Search" %>
+			% end %-->
+			<ul class="nav navbar-nav pull-right">
+				<% if user_signed_in? %>
+					<li><%= link_to 'New Opinion', new_opinion_path %></li>
+					<li><%= link_to image_tag(current_user.avatar_url, alt: "#{current_user.name}'s Profile", class: 'navbar-avatar'), current_user %></li> 
+					<li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+				<% else %>
+					<li><%= link_to 'Sign Up', new_user_registration_path %></li>
+					<li><%= link_to 'Sign In', new_user_session_path %></li>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+</nav>			
