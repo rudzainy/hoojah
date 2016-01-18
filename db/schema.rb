@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20151004123430) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.integer  "role_id",                default: 4
+    t.integer  "role_id",                default: 3
     t.string   "name"
     t.text     "about"
     t.string   "avatar"

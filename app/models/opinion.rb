@@ -4,6 +4,8 @@ class Opinion < ActiveRecord::Base
   # include Elasticsearch::Model
   # include Elasticsearch::Model::Callbacks
 
+  mount_uploader :image, OpinionImageUploader
+
 	belongs_to :user
 	has_many :comments
 	has_many :votes

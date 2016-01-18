@@ -15,8 +15,18 @@ $(document).ready(function(){
 			});
 		});
 	});
-
+	
 	$('#unsplash-search-box').hide();
+	
+	$('#upload-image').on('click', function(){
+		$('#unsplash-search-box').hide();
+		$('#image-box').html('<input type="file" name="opinion[image]">')
+	});
+
+	$('#search-image').on('click', function(){
+		$('#unsplash-search-box').show();
+		$('#image-box').html('<input type="hidden" name="opinion[image]" class="image-link">')
+	});
 
 	$('.search-button').click(function(event){
 		event.preventDefault();

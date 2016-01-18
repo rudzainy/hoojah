@@ -1,59 +1,59 @@
 #opinions.transition-enabled
-	- @opinion.each do |opinion|
+	- @opinions.each do |opinion|
+		.box.panel.panel-default
+			- if opinion.disable == true
+				.red-bar
+			.panel-heading.opinion_image
+				#image-border
+					- if opinion.image.url.nil?
+						= link_to (image_tag "default-image.png"), opinion
+					-else
+						= link_to (image_tag opinion.image_url(:thumbnail)), opinion 
+				.panel-title
+					.panel-container
+						h2.text-center
+							= link_to "#{opinion.title[0..100].gsub(/\s\w+\s*$/,'...')}", opinion
+						.panel-vote
+							= link_to opinion.option1, vote_opinion_path(id: opinion.id, flag: 1), method: :post, class: "option1"
+							= link_to "Neutral", vote_opinion_path(id: opinion.id, flag: 0), method: :post, class: "neutral"
+							= link_to opinion.option2, vote_opinion_path(id: opinion.id, flag: 2), method: :post, class: "option2"
+			.panel-body
+				- unless opinion.votes.all.empty?
+					.percentage-bar.text-center
+						- if opinion.vote_1.count != nil && opinion.vote_1.count > 0
+							<span style="width: #{(opinion.votes.where(flag: 1).count) == nil ? 0 : (opinion.votes.where(flag: 1).count).percentage_of(opinion.votes.count)}%;" class="opinion1-bar bg-blue">#{(opinion.votes.where(flag: 1).count) == nil ? 0 : (opinion.votes.where(flag: 1).count).percentage_of(opinion.votes.count).round(2)}%</span>
+						- if opinion.vote_0.count != nil && opinion.vote_0.count > 0
+							<span style="width: #{(opinion.votes.where(flag: 0).count) == nil ? 0 : (opinion.votes.where(flag: 0).count).percentage_of(opinion.votes.count)}%;" class="neutral-bar bg-orange">#{(opinion.votes.where(flag: 0).count) == nil ? 0 : (opinion.votes.where(flag: 0).count).percentage_of(opinion.votes.count).round(2)}%</span>
+						- if opinion.vote_2.count != nil && opinion.vote_2.count > 0
+							<span style="width: #{(opinion.votes.where(flag: 2).count) == nil ? 0 : (opinion.votes.where(flag: 2).count).percentage_of(opinion.votes.count)}%;" class="opinion2-bar bg-green">#{(opinion.votes.where(flag: 2).count) == nil ? 0 : (opinion.votes.where(flag: 2).count).percentage_of(opinion.votes.count).round(2)}%</span>
+				/ h2 
+				/ 	= link_to "#{opinion.title}", opinion
+				/ .row
+				/ 	.btn-group
+				/ 		ruby: 
+				/ 			btns = ["btn-warning", "btn-primary", "btn-success"]
+				/ 			unless current_user.nil? || (vote = current_user.votes.find_by(opinion_id: opinion.id)).nil?
+				/ 				button_colors = ["btn-default", "btn-default", "btn-default"]
+				/ 				button_colors[vote.flag] = btns[vote.flag]
+				/ 			else
+				/ 				button_colors = btns
+				/ 			end
 
-		- unless opinion.disable == true
-			.box.panel.panel-default
-				.panel-heading.opinion_image
-					#image-border
-						- if opinion.image.url.nil?
-							= link_to (image_tag "default-image.png"), opinion
-						-else
-							= link_to (image_tag opinion.image), opinion 
-					.panel-title
-						.panel-container
-							h2.text-center
-								= link_to "#{opinion.title[0..160].gsub(/\s\w+\s*$/,'...')}", opinion
-							.panel-vote
-								= link_to opinion.option1, vote_opinion_path(id: opinion.id, flag: 1), method: :post, class: "option1"
-								= link_to "Neutral", vote_opinion_path(id: opinion.id, flag: 0), method: :post, class: "neutral"
-								= link_to opinion.option2, vote_opinion_path(id: opinion.id, flag: 2), method: :post, class: "option2"
-				.panel-body
-					- unless opinion.votes.all.empty?
-						.percentage-bar.text-center
-							- if opinion.vote_1.count != nil && opinion.vote_1.count > 0
-								<span style="width: #{(opinion.votes.where(flag: 1).count) == nil ? 0 : (opinion.votes.where(flag: 1).count).percentage_of(opinion.votes.count)}%;" class="opinion1-bar bg-blue">#{(opinion.votes.where(flag: 1).count) == nil ? 0 : (opinion.votes.where(flag: 1).count).percentage_of(opinion.votes.count).round(2)}%</span>
-							- if opinion.vote_0.count != nil && opinion.vote_0.count > 0
-								<span style="width: #{(opinion.votes.where(flag: 0).count) == nil ? 0 : (opinion.votes.where(flag: 0).count).percentage_of(opinion.votes.count)}%;" class="neutral-bar bg-orange">#{(opinion.votes.where(flag: 0).count) == nil ? 0 : (opinion.votes.where(flag: 0).count).percentage_of(opinion.votes.count).round(2)}%</span>
-							- if opinion.vote_2.count != nil && opinion.vote_2.count > 0
-								<span style="width: #{(opinion.votes.where(flag: 2).count) == nil ? 0 : (opinion.votes.where(flag: 2).count).percentage_of(opinion.votes.count)}%;" class="opinion2-bar bg-green">#{(opinion.votes.where(flag: 2).count) == nil ? 0 : (opinion.votes.where(flag: 2).count).percentage_of(opinion.votes.count).round(2)}%</span>
-					/ h2 
-					/ 	= link_to "#{opinion.title}", opinion
-					/ .row
-					/ 	.btn-group
-					/ 		ruby: 
-					/ 			btns = ["btn-warning", "btn-primary", "btn-success"]
-					/ 			unless current_user.nil? || (vote = current_user.votes.find_by(opinion_id: opinion.id)).nil?
-					/ 				button_colors = ["btn-default", "btn-default", "btn-default"]
-					/ 				button_colors[vote.flag] = btns[vote.flag]
-					/ 			else
-					/ 				button_colors = btns
-					/ 			end
-
-					/ 		= link_to opinion.option1, vote_opinion_path(id: opinion.id, flag: 1), method: :post, class: "btn " + button_colors[1]
-					/ 		= link_to "Neutral", vote_opinion_path(id: opinion.id, flag: 0), method: :post, class: "btn " + button_colors[0]
-					/ 		= link_to opinion.option2, vote_opinion_path(id: opinion.id, flag: 2), method: :post, class: "btn " + button_colors[2]
-					/ .row.text-center
-					/ 	.col-md-12
-					/ 		.pull-left
-					/ 			h5.color-primary
-					/ 				= pluralize(opinion.votes.where(flag: 1).count, "vote")
-					/ 		.text-center
-					/ 			h5.color-warning
-					/ 				= pluralize(opinion.votes.where(flag: 0).count, "vote")
-					/ 		.pull-right
-					/ 			h5.color-success
-					/ 				= pluralize(opinion.votes.where(flag: 2).count, "vote")
-					p.user
-					= pluralize(opinion.comments.count, "comment")
-				.panel-footer
-					p #foodporn #malaysia #cat
+				/ 		= link_to opinion.option1, vote_opinion_path(id: opinion.id, flag: 1), method: :post, class: "btn " + button_colors[1]
+				/ 		= link_to "Neutral", vote_opinion_path(id: opinion.id, flag: 0), method: :post, class: "btn " + button_colors[0]
+				/ 		= link_to opinion.option2, vote_opinion_path(id: opinion.id, flag: 2), method: :post, class: "btn " + button_colors[2]
+				/ .row.text-center
+				/ 	.col-md-12
+				/ 		.pull-left
+				/ 			h5.color-primary
+				/ 				= pluralize(opinion.votes.where(flag: 1).count, "vote")
+				/ 		.text-center
+				/ 			h5.color-warning
+				/ 				= pluralize(opinion.votes.where(flag: 0).count, "vote")
+				/ 		.pull-right
+				/ 			h5.color-success
+				/ 				= pluralize(opinion.votes.where(flag: 2).count, "vote")
+				p.user
+				= pluralize(opinion.comments.count, "comment")
+			.panel-footer
+				p #foodporn #malaysia #cat

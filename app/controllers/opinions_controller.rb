@@ -1,6 +1,5 @@
 class OpinionsController < ApplicationController
 	before_action :find_opinion, only: [:show, :update, :destroy, :disable]
-	load_and_authorize_resource
 	helper VotesHelper
 
 	# Disable an Opinion post
@@ -57,7 +56,15 @@ class OpinionsController < ApplicationController
 
 	# Index of hoojah
 	def index
-		@opinion = Opinion.limit(15)
+		if user_signed_in?
+			if current_user.role.name == "Admin" || current_user.role.name == "Moderator"
+				@opinions = Opinion.all 
+			else
+				@opinions = Opinion.where(disable: false)
+			end
+		else
+			@opinions = Opinion.where(disable: false)
+		end
 	end
 
 	# View individual Opinion post

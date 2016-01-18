@@ -25,3 +25,5 @@
 
 # Ignore Carrierwave image folder
 /public/uploads
+# Ignore Cloudinary yml
+/config/cloudinary.yml

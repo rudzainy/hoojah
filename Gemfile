@@ -57,6 +57,10 @@ gem 'identicon'
 
 # Use Carrierwave for image uploading
 gem 'carrierwave'
+# Use MiniMagik for image processing
+gem 'mini_magick'
+# Use Cloudinary for online image storage
+gem 'cloudinary'
 
 #for search 
 # gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'

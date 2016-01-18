@@ -14,11 +14,15 @@
 		= f.label :category 
 		= f.select :category_id, options_for_select(Category.all.collect {|p| [p.name, p.id] })
     = f.hidden_field :user_id, value: "#{current_user.id}"
-    = f.hidden_field :opinion_id, value: "#{@opinion_id}"
+    / = f.hidden_field :opinion_id, value: "#{@opinion_id}"
+    = link_to "Upload image", "#", id: "upload-image", class: "btn btn-primary"
+    = link_to "Search from Unsplash.com", "#", id: "search-image", class: "btn btn-primary"
+    / = f.file_field :image
 	.form-group
-		= f.label :search_image
-		= link_to 'Search image', "#", onclick: "$('#unsplash-search-box').show();"
-		= f.hidden_field :image, class: 'image-link'
+		#image-box
+		/ = f.label :search_image
+		/ = link_to 'Search image', "#", onclick: "$('#unsplash-search-box').show();"
+		/ = f.hidden_field :image, class: 'image-link'
 		/ Will use bootstrap popup later
 
 		/ Placeholder for selected image

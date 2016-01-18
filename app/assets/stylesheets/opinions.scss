@@ -21,6 +21,7 @@
 	  	height: auto;
 	  }
 	  .opinion_image {
+	  	min-height: 175px;
 			position: relative;
 		  padding: 0 !important;
 			img {
@@ -253,4 +254,10 @@
 	border: 2px #fff solid;
 	height: 200px;
 	width: auto;
+}
+
+.red-bar {
+	width: 100%;
+	height: 5px;
+	background-color: $red;
 }
