@@ -6,7 +6,7 @@
 					- if @opinion.image.url.nil?
 							= link_to (image_tag "default-image.png"), @opinion
 					- else
-						= link_to (image_tag @opinion.image), @opinion 
+						= link_to (image_tag @opinion.image_url), @opinion 
 				.panel-title
 					.panel-container
 						h2.text-center
