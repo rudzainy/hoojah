@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
 			else
 	      @comment = current_user.comments.new(comment_params)	        
 	      if @comment.save!
-	      	@comment.update(user_vote: @comment.opinion.votes.find_by_user_id(1).flag) if !@comment.opinion.votes.find_by_user_id(1).flag.nil?
+	      	@comment.update(user_vote: @comment.opinion.votes.find_by_user_id(current_user.id).flag) if !@comment.opinion.votes.find_by_user_id(current_user.id).flag.nil?
 					format.html { redirect_to @opinion,
 					              notice: "#{current_user.name}, you\'ve joined in the discussion!" }
 					format.js
