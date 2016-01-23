@@ -54,6 +54,6 @@
 				/ 			h5.color-success
 				/ 				= pluralize(opinion.votes.where(flag: 2).count, "vote")
 				p.user
-				= pluralize(opinion.comments.count, "comment")
+				= pluralize(opinion.active_comments.count, "comment")
 			.panel-footer
 				p #foodporn #malaysia #cat

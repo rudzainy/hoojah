@@ -12,5 +12,4 @@ class Comment < ActiveRecord::Base
 	  self.update(disable: false)
 	end
 
-
 end

@@ -55,6 +55,10 @@ class Opinion < ActiveRecord::Base
 	)
 	end
 
+	def active_comments
+		Comment.where(opinion_id: self.id, disable: false)
+	end
+
 	# settings index: { number_of_shards: 1 } do
 	#   mappings dynamic: 'false' do
 	#   	indexes :title, analyzer: 'english', index_options: 'offsets'
