@@ -1,8 +1,7 @@
-.padding
-	- if can? :create, @comment
-		= form_for @comment, url: '/comments#create' do |f|
-			.form-group
-				= f.label "Comment"
-				= f.text_area :text, class: 'form-control'
-				= f.hidden_field :opinion_id, value: "#{@opinion.id}"
-			= f.submit "Submit", class: "btn btn-primary"
+- if can? :create, @comment
+	= form_for @comment, url: '/comments#create' do |f|
+		.form-group
+			= f.label "Comment"
+			= f.text_area :text, class: 'form-control'
+			= f.hidden_field :opinion_id, value: "#{@opinion.id}"
+		= f.submit "Submit", class: "btn btn-primary"

@@ -55,7 +55,7 @@
 					- if can? :destroy, @opinion	
 						= link_to "Erase", opinion_path(@opinion), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-default"
 				.clearfix
-			.panel-body
+			.panel-body.padding
 				- if can? :create, @comment
 					= render 'comments/form'
 				- else
