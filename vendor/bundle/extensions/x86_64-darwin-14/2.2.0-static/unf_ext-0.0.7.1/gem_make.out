@@ -1,0 +1,12 @@
+/Users/rudzainy/.rbenv/versions/2.2.2/bin/ruby -r ./siteconf20160122-1797-cso0ya.rb extconf.rb
+checking for main() in -lstdc++... yes
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+compiling unf.cc
+linking shared-object unf_ext.bundle
+
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 unf_ext.bundle ./.gem.20160122-1797-hvnzy8

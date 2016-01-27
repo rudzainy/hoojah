@@ -66,7 +66,9 @@
 							font-weight: 600;
 							padding-top: 20px;
 							padding-bottom: 20px;
-							border: 2px solid rgba(0,0,0,0.01);
+							border-bottom: 2px solid rgba(0,0,0,0.01);
+							border-left: 2px solid rgba(0,0,0,0.01);
+							border-right: 2px solid rgba(0,0,0,0.01);
 						}
 						a {
 							color: $silver;
@@ -76,23 +78,26 @@
 						}
 						.option1 {
 							width: 33%;
+							border-top: 2px solid $blue;
 							&:hover {
 								color: $blue;
-							border: 2px solid $blue;
+								border: 2px solid $blue;
 							}
 						}
 						.option2 {
 							width: 33%;
+							border-top: 2px solid $green;
 							&:hover {
 								color: $green;
-							border: 2px solid $green;
+								border: 2px solid $green;
 							}
 						}
 						.neutral {
 							width: 34%;
+							border-top: 2px solid $orange;
 							&:hover {
 								color: $orange;
-							border: 2px solid $orange;
+								border: 2px solid $orange;
 							}
 						}
 					}
@@ -180,34 +185,39 @@
 						font-weight: 600;
 						padding-top: 20px;
 						padding-bottom: 20px;
-						border: 2px solid rgba(0,0,0,0.01);
-					}
-					a {
-						color: $silver;
-					}
-					a:hover {
-						text-decoration: none;
-					}
-					.option1 {
-						width: 33%;
-						&:hover {
-							color: $blue;
-						border: 2px solid $blue;
+						border-bottom: 2px solid rgba(0,0,0,0.01);
+							border-left: 2px solid rgba(0,0,0,0.01);
+							border-right: 2px solid rgba(0,0,0,0.01);
 						}
-					}
-					.option2 {
-						width: 33%;
-						&:hover {
-							color: $green;
-						border: 2px solid $green;
+						a {
+							color: $silver;
 						}
-					}
-					.neutral {
-						width: 34%;
-						&:hover {
-							color: $orange;
-						border: 2px solid $orange;
+						a:hover {
+							text-decoration: none;
 						}
+						.option1 {
+							width: 33%;
+							border-top: 2px solid $blue;
+							&:hover {
+								color: $blue;
+								border: 2px solid $blue;
+							}
+						}
+						.option2 {
+							width: 33%;
+							border-top: 2px solid $green;
+							&:hover {
+								color: $green;
+								border: 2px solid $green;
+							}
+						}
+						.neutral {
+							width: 34%;
+							border-top: 2px solid $orange;
+							&:hover {
+								color: $orange;
+								border: 2px solid $orange;
+							}
 					}
 				}
 			}

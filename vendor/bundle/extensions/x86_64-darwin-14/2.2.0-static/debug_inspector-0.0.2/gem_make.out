@@ -1,0 +1,11 @@
+/Users/rudzainy/.rbenv/versions/2.2.2/bin/ruby -r ./siteconf20160122-1797-1yy45yi.rb extconf.rb
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+compiling debug_inspector.c
+linking shared-object debug_inspector.bundle
+
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 debug_inspector.bundle ./.gem.20160122-1797-s0op6s
