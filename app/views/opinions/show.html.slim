@@ -4,7 +4,7 @@
 			.panel-heading.opinion_image
 				#image-border
 					- if @opinion.image.url.nil?
-							= link_to (image_tag "default-image.png"), @opinion
+							= link_to (image_tag "default_image.png"), @opinion
 					- else
 						= link_to (image_tag @opinion.image_url), @opinion 
 				.panel-title

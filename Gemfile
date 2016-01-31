@@ -58,7 +58,7 @@ gem 'identicon'
 # Use Carrierwave for image uploading
 gem 'carrierwave'
 # Use MiniMagik for image processing
-# gem 'mini_magick'
+gem 'mini_magick'
 # Use Cloudinary for online image storage
 gem 'cloudinary'
 
