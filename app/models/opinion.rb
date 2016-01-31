@@ -34,6 +34,10 @@ class Opinion < ActiveRecord::Base
 		self.votes.where(flag: 2)
 	end
 
+	def voted?(user_id)
+		!self.votes.find_by(user_id: user_id).nil?
+	end
+
 	def self.search(query)
 	  __elasticsearch__.search(
 	  {

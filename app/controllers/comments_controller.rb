@@ -23,7 +23,18 @@ class CommentsController < ApplicationController
 			else
 	      @comment = current_user.comments.new(comment_params)	        
 	      if @comment.save!
-	      	@comment.update(user_vote: @comment.opinion.votes.find_by_user_id(current_user.id).flag) if !@comment.opinion.votes.find_by_user_id(current_user.id).flag.nil?
+	      	if @comment.opinion.votes.find_by_user_id(current_user.id).nil?
+	      		case params[:vote]
+		      		when "Comment & vote for #{@comment.opinion.option1}"
+		      			@comment.opinion.votes.create(user_id: current_user.id, flag: 1)
+		      		when "Comment & vote for #{@comment.opinion.option2}"
+		      			@comment.opinion.votes.create(user_id: current_user.id, flag: 2)
+		      		when "Comment & vote for Neutral"
+		      			@comment.opinion.votes.create(user_id: current_user.id, flag: 0)
+		      	end
+	      	end
+	      	@comment.update(user_vote: @comment.opinion.votes.find_by_user_id(current_user.id).flag)
+
 					format.html { redirect_to @opinion,
 					              notice: "#{current_user.name}, you\'ve joined in the discussion!" }
 					format.js

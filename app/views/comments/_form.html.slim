@@ -4,4 +4,10 @@
 			= f.label "Comment"
 			= f.text_area :text, class: 'form-control'
 			= f.hidden_field :opinion_id, value: "#{@opinion.id}"
-		= f.submit "Submit", class: "btn btn-primary"
+		- if @opinion.voted?(current_user.id)
+			= f.submit "Submit", class: "btn btn-primary"
+		- else
+			.comment-vote-buttons
+				= f.submit "Comment & vote for #{@opinion.option1}", class: "btn btn-primary", name: 'vote'
+				= f.submit "Comment & vote for Neutral", class: "btn btn-warning", name: 'vote'
+				= f.submit "Comment & vote for #{@opinion.option2}", class: "btn btn-success", name: 'vote'
