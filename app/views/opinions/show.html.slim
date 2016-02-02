@@ -45,7 +45,7 @@
 										.col-md-2
 											= link_to "Go to debate", [@opinion, debate], class: "btn-sm btn-primary"
 			.panel-footer
-				.pull-left posted by #{@opinion.user.name}
+				.pull-left posted by <a href="#{user_path(@opinion.user)}">#{@opinion.user.name}</a> #{time_ago_in_words(@opinion.created_at)} ago
 				.btn-toolbar.btn-group.pull-right
 					- if can? :create, @debate
 						= link_to "Create Debate", new_opinion_debate_path(@opinion), class: "btn btn-primary"

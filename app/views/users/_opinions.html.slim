@@ -2,11 +2,15 @@
 	- unless (opinions = @user.opinions).count == 0
 		- opinions.each do |opinion|
 			.row.user_opinion
-				.col-md-4
-					= image_tag opinion.image, class: "avatar"
-				.col-md-4
-					= opinion.title
+				.col-md-1
+					= link_to (image_tag opinion.image.url, class: "img-thumbnail"), opinion
+				.col-md-7
+					= link_to opinion.title, opinion
 				.col-md-4
 					= opinion.created_at
+			hr
 	- else
-		p You have no opinions.
+		-if current_user.id == @user.id
+			p You have no opinions.
+		- else
+			p The user has no opinions.

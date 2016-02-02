@@ -5,16 +5,19 @@
 img.avatar {
   // margin-right: 10px;
   // margin-top: 5px;
-  width: 35px;
+  width: 100px;
   border-radius: 50%;
 }
 
-.user.panel-heading {
-	overflow: auto;
+.user-heading {
+	display: flex;
+  align-items: center;
+
 }
 
-.user h2 {
-	font-size: 18px;
+.user-name {
+  margin-left: 20px;
+	font-size: 24pt;
 }
 
 .user pre {

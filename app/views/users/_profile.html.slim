@@ -1,22 +1,19 @@
 .tab-pane#user_profile.active
-	.btn-toolbar#profile-controls.push-right
-		.btn-group
-			= link_to 'Edit', edit_user_registration_path(@user), class: "btn btn-primary"
+	- if can? :update, @user
+		.btn-toolbar#profile-controls.push-right
+			.btn-group
+				= link_to 'Edit', edit_user_path(@user), class: "btn btn-primary"
 
 	#user_profile
-		h2.avatar Avatar
-		= image_tag current_user.avatar_url, class: "avatar"
-		h2.name Name
-		pre.name = check_and_fill(current_user.name)
 
-		h2.about About
-		pre.about = check_and_fill(current_user.about)
+		h4.about About
+		pre.about = check_and_fill(@user.about)
 
-		h2.location Location
-		pre.location = check_and_fill(current_user.location)
+		h4.location Location
+		pre.location = check_and_fill(@user.location)
 
-		h2.gender Gender
-		pre.gender = check_and_fill(current_user.gender)
+		h4.gender Gender
+		pre.gender = check_and_fill(@user.gender)
 
-		h2.birthday Birthday
-		pre.birthday = check_and_fill(current_user.birthday)
+		h4.birthday Birthday
+		pre.birthday = check_and_fill(@user.birthday)

@@ -1,48 +1,57 @@
 = form_for @opinion do |f|
 	/ Display error messages if any
 	- if @opinion.errors.any?
-		h2
-		= pluralize(@opinion.errors.count, "error")
-		prevented this post from saving
-		ul
-			- @opinion.errors.full_messages.each do |msg|
-				li = msg
+		#error_explanation
+			h2
+			= pluralize(@opinion.errors.count, "error")
+			|  prevented this post from saving
+			ul
+				- @opinion.errors.full_messages.each do |msg|
+					li = msg
 
-	.form-group
-		= f.label :title, class: "form-label"
-		= f.text_field :title, autofocus: true
-	.form-group
-		= f.label :category, class: "form-label"
-		= f.select :category_id, options_for_select(Category.all.collect {|p| [p.name, p.id] })
+	.form-horizontal
+		.form-group
+			.col-sm-2.control-label
+				= f.label :title
+			.col-sm-10
+				= f.text_field :title, autofocus: true, class: "form-control"
+		.form-group
+			.col-sm-2.control-label
+				= f.label :category
+			.col-sm-10
+				= f.select :category_id, options_for_select(Category.all.collect {|p| [p.name, p.id] }), {}, class: "form-control"
 		= f.hidden_field :user_id, value: "#{current_user.id}"
-    / = f.hidden_field :opinion_id, value: "#{@opinion_id}"
-    /= link_to "Upload image", "#", id: "upload-image", class: "btn btn-primary"
-    /= link_to "Search from Unsplash.com", "#", id: "search-image", class: "btn btn-primary"
-	.form-group
-		= f.label "Upload image", class: "form-label"
-		= f.file_field :image
-	.form-group
-		#image-box
-		/ = f.label :search_image
-		/ = link_to 'Search image', "#", onclick: "$('#unsplash-search-box').show();"
-		/ = f.hidden_field :image, class: 'image-link'
-		/ Will use bootstrap popup later
+	    / = f.hidden_field :opinion_id, value: "#{@opinion_id}"
+	    /= link_to "Upload image", "#", id: "upload-image", class: "btn btn-primary"
+	    /= link_to "Search from Unsplash.com", "#", id: "search-image", class: "btn btn-primary"
+		.form-group
+			.col-sm-2.control-label
+				= f.label "Upload image"
+			.col-sm-10
+				= f.file_field :image, class: "form-control"
+		.form-group
+			#image-box
+			/ = f.label :search_image
+			/ = link_to 'Search image', "#", onclick: "$('#unsplash-search-box').show();"
+			/ = f.hidden_field :image, class: 'image-link'
+			/ Will use bootstrap popup later
 
-		/ Placeholder for selected image
-		/ br Image selected: 
-		.image-placeholder
-	.form-group
-		.row
-			.col-md-6
-				= f.label :option_1, class: "form-label"
+			/ Placeholder for selected image
+			/ br Image selected: 
+			.image-placeholder
+		.form-group
+			.col-sm-2.control-label
+				= f.label :option_1
 				/ Sets maximum characters to 12
-				= f.text_field :option1, maxlength: '12'
-			.col-md-6
-				= f.label :option_2 , class: "form-label"
+			.col-sm-4
+				= f.text_field :option1, maxlength: '12', class: "form-control"
+			.col-sm-2.control-label
+				= f.label :option_2
 				/ Sets maximum characters to 12
-				= f.text_field :option2, maxlength: '12'
-	.btn-group
-		= f.submit 'Post', class: "btn btn-primary"
+			.col-sm-4
+				= f.text_field :option2, maxlength: '12', class: "form-control"
+		.btn-group
+			= f.submit 'Post', class: "btn btn-primary"
 
 #unsplash-search-box
 	= render 'search_image'

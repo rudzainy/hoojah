@@ -1,18 +1,26 @@
 .col-md-8.col-md-offset-2
+	.row
+		.panel.panel-default
+			.panel-heading.user-heading
+				.user-avatar
+				- if @user.avatar.url.nil?
+					= image_tag "default_avatar.png", class: "avatar"
+				- else
+					= image_tag @user.avatar.url, class: "avatar"
+				.user-name
+					= @user.name
+			.panel-body
+				ul.nav.nav-tabs data-tabs="tabs"
+					li.tab.active: a href="#user_profile" data-toggle="tab" Profile
+					li.tab: a href="#user_opinions" data-toggle="tab" Opinions
+					li.tab: a href="#user_debates" data-toggle="tab" Debates
+					li.tab: a href="#user_comments" data-toggle="tab" Comments
+					li.tab: a href="#user_notifications" data-toggle="tab" Notifications
 
-	.panel.panel-default
-		.panel-heading.user
-			ul.nav.nav-tabs data-tabs="tabs"
-				li.tab.active: a href="#profile" data-toggle="tab" Profile
-				li.tab: a href="#user_opinions" data-toggle="tab" Opinions
-				li.tab: a href="#user_debates" data-toggle="tab" Debates
-				li.tab: a href="#user_comments" data-toggle="tab" Comments
-				li.tab: a href="#user_notifications" data-toggle="tab" Notifications
-
-		.panel-body.user
-			.tab-content
-				= render 'profile'
-				= render 'opinions'
-				= render 'debates'
-				= render 'comments'
-				= render 'notifications'
+			.panel-body.user.padding
+				.tab-content
+					= render 'profile'
+					= render 'opinions'
+					= render 'debates'
+					= render 'comments'
+					= render 'notifications'
