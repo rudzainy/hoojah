@@ -2,10 +2,7 @@
   li id="comment-#{comment.id}"
     .padding
       span.picture
-        - if comment.user.avatar.url.nil?
-          = link_to (image_tag "default_avatar.png", class: "picture-#{comment.user_vote}"), comment.user
-        - else
-          = link_to (image_tag comment.user.avatar.url, class: "picture-#{comment.user_vote}"), comment.user
+        = link_to (image_tag comment.user.display_avatar, class: "picture-#{comment.user_vote}"), comment.user
       span.user = link_to comment.user.name, comment.user
       span.text = comment.text
       span.timestamp

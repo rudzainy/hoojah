@@ -1,6 +1,11 @@
-h1 Add new debate
-/- if can? :create, @opinion
-= render 'form'
-/- else
-/	  p
-/	    | You must #{link_to "Login", new_user_session_path} to post a new opinion
+.col-md-6.col-md-offset-3
+	.row
+		.panel.panel-default
+			.panel-heading
+				h1 Add new debate
+			.panel-body.padding
+				- if can? :create, @debate
+					= render 'form'
+				- else
+					  p
+					  	| You must #{link_to "Login", new_user_session_path} to create a new debate

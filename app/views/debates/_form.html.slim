@@ -1,35 +1,42 @@
 = form_for [@opinion, @debate] do |f|
 	/ Display error messages if any
 	- if @debate.errors.any?
-		h2
-		= pluralize(@debate.errors.count, "error")
-		prevented this post from saving
-		ul
-			- @debate.errors.full_messages.each do |msg|
-				li = msg
+		#error_explanation
+			h2
+			= pluralize(@debate.errors.count, "error")
+			|	prevented this post from saving
+			ul
+				- @debate.errors.full_messages.each do |msg|
+					li = msg
 	
 	#opinion_show.row
-	.col-md-8.col-md-offset-2
-		.panel.panel-default
-			.panel-heading.opinion_image
-				h2.text-center
-					= @opinion.title
-			.panel-body
-				.row
-					p Placeholder text
-			.panel-footer
-				.row
-					.col-md-6
-						p.user
-						p posted by #{@opinion.user.name}
+		.col-md-8.col-md-offset-2
+			.panel.panel-default
+				.panel-heading.opinion_image
+					h2.text-center
+						= @opinion.title
+				.panel-body
+					.row
+						p Placeholder text
+				.panel-footer
+					.row
+						.col-md-6
+							p.user
+							p posted by #{@opinion.user.name}
 
+	.form-horizontal
 		.form-group
-			= f.label :challenger 
-			= f.text_field :user_con_id  , autofocus: true
-			= f.label :description 
-			= f.text_area :description
+			.col-sm-2.control-label
+				= f.label :challenger
+			.col-sm-10
+				= f.text_field :user_con_id  , autofocus: true, class: "form-control", value: "#{@challenger}"
+		.form-group
+			.col-sm-2.control-label
+				= f.label :description
+			.col-sm-10
+				= f.text_area :description, class: "form-control"
 	    = f.hidden_field :user_pro_id, value: "#{current_user.id}"
 	    = f.hidden_field :opinion_id, value: "#{@opinion.id}"
 		
 		.btn-group
-			= f.submit 'Create'
+			= f.submit 'Create', class: "btn btn-primary"

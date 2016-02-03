@@ -1,52 +1,45 @@
-#opinion_show.row
-	.col-md-8.col-md-offset-2
+#debate_show.row
+	.col-md-9
 		.panel.panel-default
-			.panel-heading
-				.row
-					.col-md-5
-						.pull-right
-							= User.find(@debate.user_pro_id).name
-							= image_tag User.find(@debate.user_pro_id).avatar, alt: "#{User.find(@debate.user_pro_id).name}'s avatar", class: 'avatar'
-					.col-md-2
-						h4.text-center VS
-					.col-md-5
-						.pull-left
-							= image_tag User.find(@debate.user_con_id).avatar, alt: "#{User.find(@debate.user_con_id).name}'s avatar", class: 'avatar'
-							= User.find(@debate.user_con_id).name
 			.panel-heading.opinion_image
 				#image-border
-					= image_tag @opinion.image
-				h2.text-center
-					= @opinion.title
+					- if @opinion.image.url.nil?
+						= link_to (image_tag "default_image.png"), @opinion
+					- else
+						= link_to (image_tag @opinion.image_url), @opinion 
+				.panel-title
+					.panel-container
+						h2.text-center
+							= @opinion.title
+						.panel-vote
+							= link_to @opinion.option1, vote_opinion_path(id: @opinion.id, flag: 1), method: :post, class: "option1"
+							= link_to "Neutral", vote_opinion_path(id: @opinion.id, flag: 0), method: :post, class: "neutral"
+							= link_to @opinion.option2, vote_opinion_path(id: @opinion.id, flag: 2), method: :post, class: "option2"
 			.panel-body
+				- unless @opinion.votes.all.empty?
+					.percentage-bar.text-center
+						- if @opinion.vote_1.count != nil && @opinion.vote_1.count > 0
+							<span style="width: #{(@opinion.vote_1.count) == nil ? 0 : (@opinion.vote_1.count).percentage_of(@opinion.votes.count)}%;" class="opinion1-bar bg-blue">#{(@opinion.vote_1.count) == nil ? 0 : (@opinion.vote_1.count).percentage_of(@opinion.votes.count).round(2)}%</span>
+						- if @opinion.vote_0.count != nil && @opinion.vote_0.count > 0
+							<span style="width: #{(@opinion.vote_0.count) == nil ? 0 : (@opinion.vote_0.count).percentage_of(@opinion.votes.count)}%;" class="neutral-bar bg-orange">#{(@opinion.vote_0.count) == nil ? 0 : (@opinion.vote_0.count).percentage_of(@opinion.votes.count).round(2)}%</span>
+						- if @opinion.vote_2.count != nil && @opinion.vote_2.count > 0
+							<span style="width: #{(@opinion.vote_2.count) == nil ? 0 : (@opinion.vote_2.count).percentage_of(@opinion.votes.count)}%;" class="opinion2-bar bg-green">#{(@opinion.vote_2.count) == nil ? 0 : (@opinion.vote_2.count).percentage_of(@opinion.votes.count).round(2)}%</span>
+			.panel-heading
 				.row
-					h5
-						= @debate.description
-				.row
-					.btn-group
-						ruby: 
-							btns = ["btn-warning", "btn-primary", "btn-success"]
-							unless current_user.nil? || (vote = current_user.votes.find_by(opinion_id: @opinion.id)).nil?
-								button_colors = ["btn-default", "btn-default", "btn-default"]
-								button_colors[vote.flag] = btns[vote.flag]
-							else
-								button_colors = btns
-							end
-
-						= link_to @opinion.option1, vote_opinion_path(id: @opinion.id, flag: 1), method: :post, class: "btn " + button_colors[1]
-						= link_to "Neutral", vote_opinion_path(id: @opinion.id, flag: 0), method: :post, class: "btn " + button_colors[0]
-						= link_to @opinion.option2, vote_opinion_path(id: @opinion.id, flag: 2), method: :post, class: "btn " + button_colors[2]
-				.row.text-center
-					.col-md-12
-						span.text-left
-							h5.color-primary
-								= pluralize(@opinion.votes.where(flag: 1).count, "vote")
-						span.text-center
-							h5.color-warning
-								= pluralize(@opinion.votes.where(flag: 0).count, "vote")
-						span.text-right
-							h5.color-success
-								= pluralize(@opinion.votes.where(flag: 2).count, "vote")
+					.col-md-4
+						.comments
+							= @debate.user_pro.name
+					.col-md-1.comments
+						span.picture
+							= image_tag @debate.user_pro.display_avatar, alt: "#{@debate.user_pro.name}'s avatar", class: 'picture-1'
+					.col-md-2
+						h4.text-center VS
+					.col-md-1
+						.comments
+							span.picture
+								= image_tag @debate.user_con.display_avatar, alt: "#{@debate.user_con.name}'s avatar", class: 'picture-2'
+					.col-md-4
+						= @debate.user_con.name
 			.panel-footer
 				.row
 					.col-md-6
@@ -71,3 +64,8 @@
 		          
 			    ol.comments
 				  	= render @comments
+	.col-md-3
+		.bg-blue.user.center
+			.picture
+				= image_tag @debate.user_pro.display_avatar, alt: "#{@debate.user_pro.name}'s avatar"
+			p lala

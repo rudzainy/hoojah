@@ -1,5 +1,5 @@
 #opinion_show.row
-	.col-md-8.col-md-offset-2
+	.col-md-9
 		.panel.panel-default
 			.panel-heading.opinion_image
 				#image-border
@@ -24,26 +24,29 @@
 							<span style="width: #{(@opinion.vote_0.count) == nil ? 0 : (@opinion.vote_0.count).percentage_of(@opinion.votes.count)}%;" class="neutral-bar bg-orange">#{(@opinion.vote_0.count) == nil ? 0 : (@opinion.vote_0.count).percentage_of(@opinion.votes.count).round(2)}%</span>
 						- if @opinion.vote_2.count != nil && @opinion.vote_2.count > 0
 							<span style="width: #{(@opinion.vote_2.count) == nil ? 0 : (@opinion.vote_2.count).percentage_of(@opinion.votes.count)}%;" class="opinion2-bar bg-green">#{(@opinion.vote_2.count) == nil ? 0 : (@opinion.vote_2.count).percentage_of(@opinion.votes.count).round(2)}%</span>
-				- unless @debates.empty?
-					.row
-						.col-md-12
-							h3 Latest Debates
-							.row
-								.col-md-5
-									|	Proposer
-								.col-md-5
-									| Contender
-								.col-md-2
-								- @debates.each do |debate|
-									.row
-										.col-md-5
-											= image_tag User.find(debate.user_pro_id).avatar, alt: "#{User.find(debate.user_pro_id).name}'s avatar", class: 'avatar'
-											= User.find(debate.user_pro_id).name
-										.col-md-5
-											= image_tag User.find(debate.user_con_id).avatar, alt: "#{User.find(debate.user_con_id).name}'s avatar", class: 'avatar'
-											= User.find(debate.user_con_id).name
-										.col-md-2
-											= link_to "Go to debate", [@opinion, debate], class: "btn-sm btn-primary"
+				/ - unless @debates.empty?
+				/ 	.row
+				/ 		.col-md-12
+				/ 			h3 Latest Debates
+				/ 			.row
+				/ 				.col-md-5
+				/ 					|	Proposer
+				/ 				.col-md-5
+				/ 					| Contender
+				/ 				.col-md-2
+				/ 				- @debates.each do |debate|
+				/ 					.row
+				/ 						.col-md-5
+				/ 							#debate_show
+				/ 								.bg-blue.user.center
+				/ 									.picture
+				/ 										= image_tag debate.user_pro.display_avatar, alt: "#{debate.user_pro.name}'s avatar"
+				/ 							= debate.user_pro.name
+				/ 						.col-md-5
+				/ 							= image_tag debate.user_con.display_avatar, alt: "#{debate.user_con.name}'s avatar", class: 'avatar'
+				/ 							= debate.user_con.name
+				/ 						.col-md-2
+				/ 							= link_to "Go to debate", [@opinion, debate], class: "btn-sm btn-primary"
 			.panel-footer
 				.pull-left posted by <a href="#{user_path(@opinion.user)}">#{@opinion.user.name}</a> #{time_ago_in_words(@opinion.created_at)} ago
 				.btn-toolbar.btn-group.pull-right
@@ -63,3 +66,26 @@
 					| You must #{link_to "Login", new_user_session_path} before you can comment
 		    ol.comments
 			  	= render @comments
+	- unless @debates.empty?
+		.col-md-3
+			h3 Latest Debates
+			- @debates.each do |debate|
+				#debate_show
+					.user
+						.row
+							.col-md-4
+								.picture
+									= image_tag debate.user_pro.display_avatar, alt: "#{debate.user_pro.name}'s avatar"
+							.col-md-4
+							.col-md-4
+								.picture
+									= image_tag debate.user_con.display_avatar, alt: "#{debate.user_con.name}'s avatar"
+						.row
+							.col-md-4
+								= debate.user_pro.name
+							.col-md-4
+								h3 VS
+							.col-md-4
+								= debate.user_con.name
+				= link_to "Go to debate", [@opinion, debate], class: "btn-sm btn-primary"
+				hr

@@ -18,6 +18,7 @@
 @import "variables";
 @import "clrs";
 @import "comments";
+@import "debates";
 @import "opinions";
 // @import "scaffolds";
 @import "search";
@@ -152,4 +153,8 @@ textarea {
 
 input {
 	border: 0;
+}
+
+.center {
+	text-align: center;
 }

@@ -36,4 +36,12 @@ class User < ActiveRecord::Base
   def regular?
   	self.role.name == "Regular"
   end
+
+  def display_avatar
+    if self.avatar.url.nil?
+      "default_avatar.png"
+    else
+      self.avatar.url
+    end
+  end
 end
