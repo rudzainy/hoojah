@@ -1,4 +1,5 @@
 class OpinionsController < ApplicationController
+	before_action :find_categories
 	before_action :find_opinion, only: [:show, :update, :destroy, :disable]
 	helper VotesHelper
 
@@ -117,6 +118,10 @@ class OpinionsController < ApplicationController
 
 	def find_opinion
 		@opinion = Opinion.find(params[:id])
+	end
+
+	def find_categories
+		@categories = Category.all
 	end
 
 	def post_params

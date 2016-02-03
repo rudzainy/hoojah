@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_action :find_categories
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -17,5 +18,9 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:account_update) do |u|
       u.permit(:name, :about, :avatar, :location, :gender, :birthday)
     end
+  end
+
+  def find_categories
+    @categories = Category.all
   end
 end

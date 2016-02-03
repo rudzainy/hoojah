@@ -29,3 +29,40 @@ html
 						p#alert = alert
 				
 				= yield
+		#footer.navbar.navbar-static-bottom
+			.container
+				.row
+					.col-md-3
+						= link_to 'hoojah', root_path, alt: "hoojah", class: "navbar-brand"
+						.clearfix
+						.navbar-footer-link
+							br
+							| hoojah is a free online community where intelligent minds from around the world come to debate and read the opinions of others. Research today’s most controversial debate topics and contribute by voting.
+							br
+							br
+							<a href="#">Privacy Policy</a> | <a href="#">Term of Use</a> | <a href="#">Sitemap</a>
+					.col-md-3
+						h3 Popular Categories
+						ul.list-group
+							- @categories.first(5).each_with_index do |category, index|
+								- if index < 4
+									li.list-group-item.footer = category.name
+								- else
+									li.list-group-item.footer-no-bottom = category.name
+					.col-md-3
+						h3 Popular Tags
+						ul.list-group
+							- @categories.first(5).each_with_index do |category, index|
+								- if index < 4
+									li.list-group-item.footer = category.name
+								- else
+									li.list-group-item.footer-no-bottom = category.name
+					.col-md-3
+						h3
+							span
+						ul.list-group
+							- @categories.first(5).each_with_index do |category, index|
+								- if index < 4
+									li.list-group-item.footer = category.name
+								- else
+									li.list-group-item.footer-no-bottom = category.name

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
 	<div class="container">
 		<div class="navbar-header">
 			<%= link_to 'hoojah', root_path, alt: "hoojah", class: "navbar-brand" %>
@@ -14,16 +14,16 @@
 			% end %-->
 			<ul class="nav navbar-nav pull-right">
 				<% if user_signed_in? %>
-					<li><%= link_to 'New Opinion', new_opinion_path %></li>
+					<li class="navbar-top-link"><%= link_to 'New Opinion', new_opinion_path %></li>
 					<% if current_user.avatar_url.nil? %>
 						<li><%= link_to (image_tag "default_avatar.png", alt: "#{current_user.name}'s Profile", class: 'navbar-avatar'), current_user %></li>
 					<% else %>
-						<li><%= link_to image_tag(current_user.avatar_url, alt: "#{current_user.name}'s Profile", class: 'navbar-avatar'), current_user %></li> 
+						<li class="navbar-top-link"><%= link_to image_tag(current_user.avatar_url, alt: "#{current_user.name}'s Profile", class: 'navbar-avatar'), current_user %></li> 
 					<% end %>
-					<li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+					<li class="navbar-top-link"><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
 				<% else %>
-					<li><%= link_to 'Sign Up', new_user_registration_path %></li>
-					<li><%= link_to 'Sign In', new_user_session_path %></li>
+					<li class="navbar-top-link"><%= link_to 'Sign Up', new_user_registration_path %></li>
+					<li class="navbar-top-link"><%= link_to 'Sign In', new_user_session_path %></li>
 				<% end %>
 			</ul>
 		</div>

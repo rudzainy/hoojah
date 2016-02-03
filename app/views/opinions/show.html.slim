@@ -3,6 +3,15 @@
 		.panel.panel-default
 			.panel-heading.opinion_image
 				#image-border
+					.btn-toolbar.btn-group.debate-edit-delete
+						- if can? :update, @opinion
+							= link_to edit_comment_path(@opinion), class: "btn btn-default" do
+									<span class="glyphicon glyphicon-pencil"></span>
+							= link_to disable_comment_path(@opinion), class: "btn btn-default", method: :patch, data: {confirm: "Are you sure you want to delete this debate?"} do
+								<span class="glyphicon glyphicon-trash"></span>
+						- if can? :destroy, @opinion
+							= link_to @opinion, class: "btn btn-danger", method: :delete, data: {confirm: "(Admin) Are you sure you want to delete this opinion (for real)?"} do
+								<span class="glyphicon glyphicon-remove"></span>
 					- if @opinion.image.url.nil?
 						= link_to (image_tag "default_image.png"), @opinion
 					- else
@@ -68,24 +77,26 @@
 			  	= render @comments
 	- unless @debates.empty?
 		.col-md-3
-			h3 Latest Debates
-			- @debates.each do |debate|
-				#debate_show
-					.user
-						.row
-							.col-md-4
-								.picture
-									= image_tag debate.user_pro.display_avatar, alt: "#{debate.user_pro.name}'s avatar"
-							.col-md-4
-							.col-md-4
-								.picture
-									= image_tag debate.user_con.display_avatar, alt: "#{debate.user_con.name}'s avatar"
-						.row
-							.col-md-4
-								= debate.user_pro.name
-							.col-md-4
-								h3 VS
-							.col-md-4
-								= debate.user_con.name
-				= link_to "Go to debate", [@opinion, debate], class: "btn-sm btn-primary"
-				hr
+			.panel.panel-default
+				.panel-body.padding
+					h3 Latest Debates
+					- @debates.each do |debate|
+						#debate_show
+							.user
+								.row
+									.col-md-4
+										.picture
+											= image_tag debate.user_pro.display_avatar, alt: "#{debate.user_pro.name}'s avatar"
+									.col-md-4
+									.col-md-4
+										.picture
+											= image_tag debate.user_con.display_avatar, alt: "#{debate.user_con.name}'s avatar"
+								.row
+									.col-md-4
+										= debate.user_pro.name
+									.col-md-4
+										h3 VS
+									.col-md-4
+										= debate.user_con.name
+						= link_to "Go to debate", [@opinion, debate], class: "btn-sm btn-primary"
+						hr

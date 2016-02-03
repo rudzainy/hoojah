@@ -1,8 +1,15 @@
 class DebatesController < ApplicationController
-	before_action :find_opinion, only: [:new, :create, :show]
-	before_action :find_debate, only: :show
+	# before_action :authenticate_user!
+	before_action :find_opinion, only: [:new, :create, :show, :destroy]
+	before_action :find_debate, only: [:show, :disable, :destroy]
 
 	def disable
+	  if @debate.hide
+      respond_to do |format|
+        format.html {redirect_to @opinion, notice: "The comment from #{@comment.user.name} is now hidden."}
+        format.js
+      end
+    end
 	end
 
 	def new
@@ -27,6 +34,12 @@ class DebatesController < ApplicationController
 	end
 
 	def destroy
+	  if @debate.destroy
+	    respond_to do |format|
+	      format.html {redirect_to @opinion, notice: "You've deleted a debate from #{@debate.user.name}."}
+	  	  format.js
+	    end
+	  end
 	end
 
 	def show

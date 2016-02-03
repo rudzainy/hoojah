@@ -35,7 +35,10 @@ Rails.application.routes.draw do
     end
 
     resources :debates
-
+  end
+  
+  resources :debates do
+    resources :hoojahs, except: [:index]
   end
   
   # get 'opinions/:opinion_id/debates' => 'debates#new', as: 'new_opinion_debate'  

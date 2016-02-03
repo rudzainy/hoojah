@@ -1,1 +1,20 @@
-h1 This is the hoojah form
+= form_for [@debate, @hoojah] do |f|
+	/ Display error messages if any
+	- if @hoojah.errors.any?
+		#error_explanation
+			h2
+			= pluralize(@hoojah.errors.count, "error")
+			|  prevented this post from saving
+			ul
+				- @hoojah.errors.full_messages.each do |msg|
+					li = msg
+
+	.form-horizontal
+		.form-group
+			.col-sm-2.control-label
+				= f.label "Your hoojah"
+			.col-sm-10
+				= f.text_area :body, autofocus: true, class: "form-control", value: @hoojah.body
+		= f.hidden_field :user_id, value: "#{current_user.id}"
+		.btn-group
+			= f.submit 'Post', class: "btn btn-primary"

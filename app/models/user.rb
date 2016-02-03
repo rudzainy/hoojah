@@ -44,4 +44,16 @@ class User < ActiveRecord::Base
       self.avatar.url
     end
   end
+
+  def debates_count
+    Debate.where(user_pro_id: self.id).count + Debate.where(user_con_id: self.id).count
+  end
+
+  def opinions_count
+    Opinion.where(user_id: self.id).count
+  end
+
+  def votes_count
+    Vote.where(user_id: self.id).count
+  end
 end

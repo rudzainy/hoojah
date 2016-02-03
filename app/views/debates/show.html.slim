@@ -1,8 +1,41 @@
 #debate_show.row
-	.col-md-9
+	.col-md-2
+		.fixed-outer.col-md-2
+			.fixed.col-md-2.fix-padding-left
+				.bg-blue.user.center
+					br
+					.picture
+						= image_tag @debate.user_pro.display_avatar, alt: "#{@debate.user_pro.name}'s avatar"
+					p = @debate.user_pro.name
+					span.glyphicon.glyphicon-bullhorn
+					|	&nbsp
+					= pluralize(@debate.user_pro.debates_count, "debate")
+					br
+					span.glyphicon.glyphicon-comment
+					|	&nbsp
+					= pluralize(@debate.user_pro.opinions_count, "opinion")
+					br
+					span.glyphicon.glyphicon-edit
+					|	&nbsp
+					= pluralize(@debate.user_pro.votes_count, "vote")
+					br
+					- if can? :create, @hoojah && @debate.user_pro.id == current_user.id
+						- if @debate.current_hoojah%2 == 0
+							= link_to "Add your hoojah", new_debate_hoojah_path(@debate), class: "btn btn-default"
+					br
+	.col-md-8
 		.panel.panel-default
 			.panel-heading.opinion_image
 				#image-border
+					.btn-toolbar.btn-group.debate-edit-delete
+						- if can? :update, @debate
+							= link_to edit_comment_path(@debate), class: "btn btn-default" do
+									<span class="glyphicon glyphicon-pencil"></span>
+							= link_to disable_comment_path(@debate), class: "btn btn-default", method: :patch, data: {confirm: "Are you sure you want to delete this debate?"} do
+								<span class="glyphicon glyphicon-trash"></span>
+						- if can? :destroy, @debate
+							= link_to [@opinion, @debate], class: "btn btn-danger", method: :delete, data: {confirm: "(Admin) Are you sure you want to delete this debate (for real)?"} do
+								<span class="glyphicon glyphicon-remove"></span>
 					- if @opinion.image.url.nil?
 						= link_to (image_tag "default_image.png"), @opinion
 					- else
@@ -24,48 +57,66 @@
 							<span style="width: #{(@opinion.vote_0.count) == nil ? 0 : (@opinion.vote_0.count).percentage_of(@opinion.votes.count)}%;" class="neutral-bar bg-orange">#{(@opinion.vote_0.count) == nil ? 0 : (@opinion.vote_0.count).percentage_of(@opinion.votes.count).round(2)}%</span>
 						- if @opinion.vote_2.count != nil && @opinion.vote_2.count > 0
 							<span style="width: #{(@opinion.vote_2.count) == nil ? 0 : (@opinion.vote_2.count).percentage_of(@opinion.votes.count)}%;" class="opinion2-bar bg-green">#{(@opinion.vote_2.count) == nil ? 0 : (@opinion.vote_2.count).percentage_of(@opinion.votes.count).round(2)}%</span>
-			.panel-heading
-				.row
-					.col-md-4
-						.comments
-							= @debate.user_pro.name
-					.col-md-1.comments
-						span.picture
-							= image_tag @debate.user_pro.display_avatar, alt: "#{@debate.user_pro.name}'s avatar", class: 'picture-1'
-					.col-md-2
-						h4.text-center VS
-					.col-md-1
-						.comments
-							span.picture
-								= image_tag @debate.user_con.display_avatar, alt: "#{@debate.user_con.name}'s avatar", class: 'picture-2'
-					.col-md-4
-						= @debate.user_con.name
-			.panel-footer
-				.row
-					.col-md-6
-						p.user
-						p posted by #{@opinion.user.name}
-									
-					.col-md-6
-						.btn-toolbar.btn-group.pull-right
-							= link_to "Create Debate", new_opinion_debate_path(@opinion), class: "btn btn-primary"
-							- if can? :update, @opinion	
-								= link_to "Edit", edit_opinion_path(@opinion), class: "btn btn-default"
-								= link_to "Delete", disable_opinion_path(@opinion), method: :patch, class: "btn-group btn btn-default"
-							- if can? :destroy, @opinion	
-								= link_to "Erase", opinion_path(@opinion), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-default"
-
-
-					- if can? :create, @comment
-						= render 'comments/form'
+			/ .panel-heading
+			/ 	.row
+			/ 		.col-md-4
+			/ 			.comments
+			/ 				= @debate.user_pro.name
+			/ 		.col-md-1.comments
+			/ 			span.picture
+			/ 				= image_tag @debate.user_pro.display_avatar, alt: "#{@debate.user_pro.name}'s avatar", class: 'picture-1'
+			/ 		.col-md-2
+			/ 			h4.text-center VS
+			/ 		.col-md-1
+			/ 			.comments
+			/ 				span.picture
+			/ 					= image_tag @debate.user_con.display_avatar, alt: "#{@debate.user_con.name}'s avatar", class: 'picture-2'
+			/ 		.col-md-4
+			/ 			= @debate.user_con.name
+			.panel-footer	
+				p posted by #{@opinion.user.name}
+			- unless @debate.hoojahs.empty?
+				- @debate.hoojahs.each_with_index do |hoojah, index|
+					- if index%2 == 0
+						.panel-body.padding.hoojah.hoojah-blue
+							span.timestamp
+							| Written #{time_ago_in_words(hoojah.created_at)} ago
+							span.text = simple_format(hoojah.body)
 					- else
-		              p
-		              | You must #{link_to "Login", new_user_session_path} before you can comment
-		          
-			    ol.comments
-				  	= render @comments
-	.col-md-3
-		.bg-blue.user.center
-			.picture
-				= image_tag @debate.user_pro.display_avatar, alt: "#{@debate.user_pro.name}'s avatar"
-			p lala
+						.panel-body.padding.hoojah.hoojah-green
+							span.timestamp
+							| Written #{time_ago_in_words(hoojah.created_at)} ago
+							span.text = simple_format(hoojah.body)
+					hr
+
+			.panel-body.padding
+				- if can? :create, @comment
+					= render 'comments/form'
+				- else
+	              p
+	              | You must #{link_to "Login", new_user_session_path} before you can comment
+		    ol.comments
+			  	= render @comments
+	.fixed-outer.col-md-2
+		.fixed.col-md-2.fix-padding-right
+			.bg-green.user.center
+				br
+				.picture
+					= image_tag @debate.user_con.display_avatar, alt: "#{@debate.user_con.name}'s avatar"
+				p = @debate.user_con.name
+				span.glyphicon.glyphicon-bullhorn
+				|	&nbsp
+				= pluralize(@debate.user_con.debates_count, "debate")
+				br
+				span.glyphicon.glyphicon-comment
+				|	&nbsp
+				= pluralize(@debate.user_con.opinions_count, "opinion")
+				br
+				span.glyphicon.glyphicon-edit
+				|	&nbsp
+				= pluralize(@debate.user_con.votes_count, "vote")
+				br
+				- if can? :create, @hoojah && @debate.user_pro.id == current_user.id
+					- if @debate.current_hoojah%2 != 0
+						= link_to "Add your hoojah", new_debate_hoojah_path(@debate), class: "btn btn-default"
+				br

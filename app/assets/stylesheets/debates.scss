@@ -6,7 +6,7 @@
 	}
 	.opinion_image {
 		position: relative;
-		height: 300px;
+		height: 250px;
 		overflow: hidden;
 		img {
 			max-width: 100%;
@@ -112,6 +112,7 @@
 	}
 	.user {
 		border-radius: 4px;
+		color: $white;
 		.picture img {
 	    margin-top: 5px;
 	    max-width: 60px;
@@ -128,4 +129,9 @@
 	    border: 3px solid $green !important;
 	  }
 	}
+}
+.debate-edit-delete {
+  position: absolute;
+  top: 0px;
+  right: 0;
 }
