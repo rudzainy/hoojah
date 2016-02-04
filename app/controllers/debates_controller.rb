@@ -18,7 +18,6 @@ class DebatesController < ApplicationController
 
 	def create
 		@debate = @opinion.debates.new(post_params)
-		byebug
 		if @debate.user_pro_id.nil?
 			@debate.user_pro_id = User.find_by(name: params[:challenger]).id
 		elsif @debate.user_con_id.nil?
