@@ -55,11 +55,5 @@ html
 								- else
 									li.list-group-item.footer-no-bottom = category.name
 					.col-md-3
-						h3
-							span
-						ul.list-group
-							- @categories.first(5).each_with_index do |category, index|
-								- if index < 4
-									li.list-group-item.footer = category.name
-								- else
-									li.list-group-item.footer-no-bottom = category.name
+						h3 Follow us!
+						= image_tag "social_icons.png", width: "300px"

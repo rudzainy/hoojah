@@ -12,3 +12,4 @@ Rails.application.config.assets.version = '1.0'
 
 Rails.application.config.assets.precompile += %w( default_avatar.png )
 Rails.application.config.assets.precompile += %w( logo-colour.png )
+Rails.application.config.assets.precompile += %w( social_icons.png )
