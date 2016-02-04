@@ -1,21 +1,29 @@
 .hoojah {
 	border-radius: 8px;
-
-	span.text {
-    display: block;
-    img {
+}
+.hoojah-text {
+  display: block;
+  img {
     display: block;
     padding: 5px;
-    }
-  }
-
-  span.timestamp {
-    color: #b6b4b4;
-    font-size: 80%;
-    display: block;
-    margin-left: 70px;
   }
 }
+
+.hoojah-timestamp {
+  color: $white;
+  width: 100%;
+  padding: 10px;
+}
+.hoojah-timestamp-left {
+  margin: -20px 0 10px -20px;
+  border-bottom-right-radius: 7px;
+}
+.hoojah-timestamp-right {
+  margin: -20px 0 10px 20px;
+  border-bottom-left-radius: 7px;
+  text-align: right;
+}
+
 .hoojah-blue{
 	border: solid 4px $blue;
 }

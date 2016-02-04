@@ -17,8 +17,13 @@ class DebatesController < ApplicationController
 	end
 
 	def create
-
 		@debate = @opinion.debates.new(post_params)
+		byebug
+		if @debate.user_pro_id.nil?
+			@debate.user_pro_id = User.find_by(name: params[:challenger]).id
+		elsif @debate.user_con_id.nil?
+			@debate.user_con_id = User.find_by(name: params[:challenger]).id
+		end
 
 		if @debate.save
 			redirect_to [@opinion, @debate], notice: 'Invitation sent!'
@@ -58,6 +63,6 @@ class DebatesController < ApplicationController
 	end
 
 	def post_params
-		params.require(:debate).permit(:opinion_id, :user_pro_id, :user_con_id, :deadline, :winner_id, :disable)
+		params.require(:debate).permit(:opinion_id, :user_pro_id, :user_con_id, :deadline, :winner_id, :disable, :description)
 	end
 end

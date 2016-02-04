@@ -9,34 +9,34 @@
 				- @debate.errors.full_messages.each do |msg|
 					li = msg
 	
-	#opinion_show.row
-		.col-md-8.col-md-offset-2
-			.panel.panel-default
-				.panel-heading.opinion_image
-					h2.text-center
-						= @opinion.title
-				.panel-body
-					.row
-						p Placeholder text
-				.panel-footer
-					.row
-						.col-md-6
-							p.user
-							p posted by #{@opinion.user.name}
+
+	h2.text-center
+		= @opinion.title
 
 	.form-horizontal
 		.form-group
 			.col-sm-2.control-label
-				= f.label :challenger
+				= label_tag :challenger
 			.col-sm-10
-				= f.text_field :user_con_id  , autofocus: true, class: "form-control", value: "#{@challenger}"
+				= text_field_tag :challenger, "#{@challenger}", autofocus: true, class: "form-control"
+		= f.hidden_field :opinion_id, value: "#{@opinion.id}"
 		.form-group
 			.col-sm-2.control-label
 				= f.label :description
 			.col-sm-10
 				= f.text_area :description, class: "form-control"
-	    = f.hidden_field :user_pro_id, value: "#{current_user.id}"
-	    = f.hidden_field :opinion_id, value: "#{@opinion.id}"
-		
-		.btn-group
-			= f.submit 'Create', class: "btn btn-primary"
+		- if @opinion.voted?(current_user.id)
+			- if @opinion.votes.find_by(user_id: current_user.id).flag == 1
+				= f.hidden_field :user_pro_id, value: "#{current_user.id}"
+				.btn-group
+					= f.submit 'Create', class: "btn btn-primary-2 btn-block"
+			- elsif @opinion.votes.find_by(user_id: current_user.id).flag == 2
+				= f.hidden_field :user_con_id, value: "#{current_user.id}"
+				.btn-group
+					= f.submit 'Create', class: "btn btn-primary-2 btn-block"
+			- else
+				p
+				| You cannot start a debate with a neutral vote. Please change your vote to #{@opinion.option1} or #{@opinion.option2}
+		- else
+				p
+				| You cannot start a debate without voting. Please change your vote to #{@opinion.option1} or #{@opinion.option2}

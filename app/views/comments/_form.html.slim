@@ -5,7 +5,7 @@
 			= f.text_area :text, class: 'form-control'
 			= f.hidden_field :opinion_id, value: "#{@opinion.id}"
 		- if @opinion.voted?(current_user.id)
-			= f.submit "Submit", class: "btn btn-primary"
+			= f.submit "Submit", class: "btn btn-primary btn-block"
 		- else
 			.comment-vote-buttons
 				= f.submit "Comment & vote for #{@opinion.option1}", class: "btn btn-primary", name: 'vote'

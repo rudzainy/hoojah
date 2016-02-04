@@ -73,6 +73,7 @@ class OpinionsController < ApplicationController
 		@comments = Comment.where(opinion_id: @opinion)
 		@comment = Comment.new
 		@debates = Debate.where(opinion_id: @opinion.id)
+		@opinions = Opinion.last(5)
 	end
 
 	# Page to create new Opinion post

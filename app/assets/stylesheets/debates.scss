@@ -112,12 +112,14 @@
 	}
 	.user {
 		border-radius: 4px;
-		color: $white;
 		.picture img {
 	    margin-top: 5px;
 	    max-width: 60px;
 	    border-radius: 50%;
 	    border: 3px solid $white;
+	  }
+	  .white {
+	  	color: $white;
 	  }
 	  .picture-0 {
 	    border: 3px solid $orange !important;

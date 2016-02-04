@@ -2,7 +2,7 @@
 	.col-md-2
 		.fixed-outer.col-md-2
 			.fixed.col-md-2.fix-padding-left
-				.bg-blue.user.center
+				.bg-blue.user.center.white
 					br
 					.picture
 						= image_tag @debate.user_pro.display_avatar, alt: "#{@debate.user_pro.name}'s avatar"
@@ -74,32 +74,33 @@
 			/ 		.col-md-4
 			/ 			= @debate.user_con.name
 			.panel-footer	
-				p posted by #{@opinion.user.name}
+				p Opinion posted by <a href="#{user_path(@opinion.user)}">#{@opinion.user.name}</a> #{time_ago_in_words(@opinion.created_at)} ago
+				p = @debate.description
 			- unless @debate.hoojahs.empty?
 				- @debate.hoojahs.each_with_index do |hoojah, index|
 					- if index%2 == 0
 						.panel-body.padding.hoojah.hoojah-blue
-							span.timestamp
-							| Written #{time_ago_in_words(hoojah.created_at)} ago
-							span.text = simple_format(hoojah.body)
+							.hoojah-timestamp.bg-blue.hoojah-timestamp-left
+								| Written #{time_ago_in_words(hoojah.created_at)} ago
+							.hoojah-text = simple_format(hoojah.body)
 					- else
 						.panel-body.padding.hoojah.hoojah-green
-							span.timestamp
-							| Written #{time_ago_in_words(hoojah.created_at)} ago
-							span.text = simple_format(hoojah.body)
-					hr
+							.hoojah-timestamp.bg-green.hoojah-timestamp-right
+								| Written #{time_ago_in_words(hoojah.created_at)} ago
+							.hoojah-text = simple_format(hoojah.body)
+					br
 
 			.panel-body.padding
 				- if can? :create, @comment
 					= render 'comments/form'
 				- else
-	              p
-	              | You must #{link_to "Login", new_user_session_path} before you can comment
+					p
+					| You must #{link_to "Login", new_user_session_path} before you can comment
 		    ol.comments
 			  	= render @comments
 	.fixed-outer.col-md-2
 		.fixed.col-md-2.fix-padding-right
-			.bg-green.user.center
+			.bg-green.user.center.white
 				br
 				.picture
 					= image_tag @debate.user_con.display_avatar, alt: "#{@debate.user_con.name}'s avatar"

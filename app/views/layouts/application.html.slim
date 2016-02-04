@@ -20,14 +20,11 @@ html
 		= render 'layouts/navbar'
 		
 		.container
+			- if notice
+				<div class="alert alert-info" role="alert">#{notice}</div>
+			- if alert
+				<div class="alert alert-success" role="alert">#{alert}</div>
 			#page
-				- if notice
-					.container.alert.alert_info
-						p#notice = notice
-				- if alert
-					.container.alert.alert_info
-						p#alert = alert
-				
 				= yield
 		#footer.navbar.navbar-static-bottom
 			.container

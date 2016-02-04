@@ -60,7 +60,7 @@
 				.pull-left posted by <a href="#{user_path(@opinion.user)}">#{@opinion.user.name}</a> #{time_ago_in_words(@opinion.created_at)} ago
 				.btn-toolbar.btn-group.pull-right
 					- if can? :create, @debate
-						= link_to "Create Debate", new_opinion_debate_path(@opinion), class: "btn btn-primary"
+						= link_to "Create Debate", new_opinion_debate_path(@opinion), class: "btn btn-primary-2"
 					- if can? :update, @opinion	
 						= link_to "Edit", edit_opinion_path(@opinion), class: "btn btn-default"
 						= link_to "Delete", disable_opinion_path(@opinion), method: :patch, class: "btn-group btn btn-default"
@@ -75,8 +75,8 @@
 					| You must #{link_to "Login", new_user_session_path} before you can comment
 		    ol.comments
 			  	= render @comments
-	- unless @debates.empty?
-		.col-md-3
+	.col-md-3
+		- unless @debates.empty?
 			.panel.panel-default
 				.panel-body.padding
 					h3 Latest Debates
@@ -98,5 +98,15 @@
 										h3 VS
 									.col-md-4
 										= debate.user_con.name
-						= link_to "Go to debate", [@opinion, debate], class: "btn-sm btn-primary"
+						= link_to "Go to debate", [@opinion, debate], class: "btn-sm btn-primary-2"
 						hr
+		.panel.panel-default
+			.panel-body.padding
+				h3 Latest Opinions
+				ul.list-group
+					- @opinions.each_with_index do |opinion, index|
+						- if index < 4
+							li.list-group-item.footer 
+								= link_to opinion.title, opinion
+						- else
+							li.list-group-item.footer-no-bottom = link_to opinion.title, opinion
